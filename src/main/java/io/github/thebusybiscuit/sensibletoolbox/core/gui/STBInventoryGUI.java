@@ -239,7 +239,7 @@ public class STBInventoryGUI implements InventoryGUI {
                 }
             } else if (event.getRawSlot() > 0) {
                 // clicking inside the player's inventory
-                if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY || event.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
                     int nInserted = listener.onShiftClickInsert(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
                     if (nInserted > 0) {
                         ItemStack stack = event.getCurrentItem();
@@ -288,6 +288,8 @@ public class STBInventoryGUI implements InventoryGUI {
 
     private boolean processGUIInventoryAction(InventoryClickEvent event) {
         switch (event.getAction()) {
+        case COLLECT_TO_CURSOR:
+            return listener.onShiftClickExtract(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
         case MOVE_TO_OTHER_INVENTORY:
             return listener.onShiftClickExtract(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
         case PLACE_ONE:

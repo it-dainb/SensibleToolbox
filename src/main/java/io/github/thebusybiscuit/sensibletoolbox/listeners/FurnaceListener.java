@@ -40,7 +40,7 @@ public class FurnaceListener extends STBBaseListener {
                 event.setCancelled(true);
             }
         } else if (event.getRawSlot() >= event.getView().getTopInventory().getSize()) {
-            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+            if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY || event.getAction() == InventoryAction.COLLECT_TO_CURSOR) {
                 if (!validateSmeltingIngredient(event.getCurrentItem()) && !event.getCurrentItem().getType().isFuel()) {
                     event.setCancelled(true);
                     int newSlot = findNewSlot(event);
