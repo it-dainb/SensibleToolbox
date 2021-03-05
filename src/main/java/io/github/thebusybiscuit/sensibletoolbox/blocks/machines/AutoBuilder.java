@@ -21,7 +21,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-import io.github.thebusybiscuit.cscorelib2.materials.MaterialCollections;
 import io.github.thebusybiscuit.cscorelib2.protection.ProtectableAction;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
@@ -34,6 +33,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBMachine;
 import io.github.thebusybiscuit.sensibletoolbox.items.LandMarker;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.IntegratedCircuit;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.ToughMachineFrame;
+import io.github.thebusybiscuit.sensibletoolbox.utils.ColoredMaterial;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
 import me.desht.dhutils.MiscUtil;
 import me.desht.dhutils.cuboid.Cuboid;
@@ -263,55 +263,55 @@ public class AutoBuilder extends BaseSTBMachine {
             OfflinePlayer owner = Bukkit.getOfflinePlayer(getOwner());
 
             switch (getBuildMode()) {
-            case CLEAR:
-                if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, ProtectableAction.BREAK_BLOCK)) {
-                    setStatus(BuilderStatus.NO_PERMISSION);
-                    return;
-                }
-
-                // just skip over any "unbreakable" blocks (bedrock, ender portal etc.)
-                if (b.getType().getHardness() < 3600000) {
-                    scuNeeded = baseScuPerOp * b.getType().getHardness();
-
-                    if (scuNeeded > getCharge()) {
-                        advanceBuildPos = false;
-                    } else if (b.getType() != Material.AIR) {
-                        b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, b.getType());
-                        BaseSTBBlock stb = SensibleToolbox.getBlockAt(b.getLocation());
-
-                        if (stb != null) {
-                            stb.breakBlock(false);
-                        } else {
-                            b.setType(Material.AIR);
-                        }
+                case CLEAR:
+                    if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, ProtectableAction.BREAK_BLOCK)) {
+                        setStatus(BuilderStatus.NO_PERMISSION);
+                        return;
                     }
-                }
-                break;
-            case FILL:
-            case WALLS:
-            case FRAME:
-                if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, ProtectableAction.PLACE_BLOCK)) {
-                    setStatus(BuilderStatus.NO_PERMISSION);
-                    return;
-                }
 
-                if (shouldBuildHere()) {
-                    scuNeeded = baseScuPerOp;
-                    if (scuNeeded > getCharge()) {
-                        advanceBuildPos = false;
-                    } else if (b.isEmpty() || b.isLiquid()) {
-                        ItemStack item = fetchNextBuildItem();
+                    // just skip over any "unbreakable" blocks (bedrock, ender portal etc.)
+                    if (b.getType().getHardness() < 3600000) {
+                        scuNeeded = baseScuPerOp * b.getType().getHardness();
 
-                        if (item == null) {
-                            setStatus(BuilderStatus.NO_INVENTORY);
+                        if (scuNeeded > getCharge()) {
                             advanceBuildPos = false;
-                        } else {
-                            b.setType(item.getType());
+                        } else if (b.getType() != Material.AIR) {
                             b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, b.getType());
+                            BaseSTBBlock stb = SensibleToolbox.getBlockAt(b.getLocation());
+
+                            if (stb != null) {
+                                stb.breakBlock(false);
+                            } else {
+                                b.setType(Material.AIR);
+                            }
                         }
                     }
-                }
-                break;
+                    break;
+                case FILL:
+                case WALLS:
+                case FRAME:
+                    if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, ProtectableAction.PLACE_BLOCK)) {
+                        setStatus(BuilderStatus.NO_PERMISSION);
+                        return;
+                    }
+
+                    if (shouldBuildHere()) {
+                        scuNeeded = baseScuPerOp;
+                        if (scuNeeded > getCharge()) {
+                            advanceBuildPos = false;
+                        } else if (b.isEmpty() || b.isLiquid()) {
+                            ItemStack item = fetchNextBuildItem();
+
+                            if (item == null) {
+                                setStatus(BuilderStatus.NO_INVENTORY);
+                                advanceBuildPos = false;
+                            } else {
+                                b.setType(item.getType());
+                                b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, b.getType());
+                            }
+                        }
+                    }
+                    break;
             }
 
             if (scuNeeded <= getCharge()) {
@@ -343,14 +343,14 @@ public class AutoBuilder extends BaseSTBMachine {
 
     private boolean shouldBuildHere() {
         switch (getBuildMode()) {
-        case FILL:
-            return true;
-        case WALLS:
-            return onOuterFace();
-        case FRAME:
-            return onOuterEdge();
-        default:
-            return false;
+            case FILL:
+                return true;
+            case WALLS:
+                return onOuterFace();
+            case FRAME:
+                return onOuterEdge();
+            default:
+                return false;
         }
     }
 
@@ -630,7 +630,7 @@ public class AutoBuilder extends BaseSTBMachine {
 
         @Nonnull
         public ItemStack makeTexture() {
-            return new ItemStack(MaterialCollections.getAllWoolColors().get(color.ordinal()));
+            return new ItemStack(ColoredMaterial.WOOL.get(color.ordinal()));
         }
 
         @Nonnull

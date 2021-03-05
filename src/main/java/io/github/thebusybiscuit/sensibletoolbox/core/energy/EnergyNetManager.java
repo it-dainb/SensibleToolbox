@@ -74,37 +74,37 @@ public class EnergyNetManager {
         List<AdjacentMachine> adjacentMachines;
 
         switch (netIds.size()) {
-        case 0:
-            // not connected to any net, start a new one IFF there is one or more adjacent machines
-            adjacentMachines = getAdjacentMachines(cable);
-            if (!adjacentMachines.isEmpty()) {
+            case 0:
+                // not connected to any net, start a new one IFF there is one or more adjacent machines
+                adjacentMachines = getAdjacentMachines(cable);
+                if (!adjacentMachines.isEmpty()) {
+                    STBEnergyNet newNet = STBEnergyNet.buildNet(cable, this);
+                    allNets.put(newNet.getNetID(), newNet);
+                    addConnectedCables(cable, newNet);
+                }
+                break;
+            case 1:
+                // connected to a single net; just add this cable to that net
+                Integer[] id = netIds.toArray(new Integer[1]);
+                STBEnergyNet net = allNets.get(id[0]);
+                net.addCable(cable);
+                // attach any adjacent machines
+                adjacentMachines = getAdjacentMachines(cable);
+                for (AdjacentMachine record : adjacentMachines) {
+                    net.addMachine(record.getMachine(), record.getDirection().getOppositeFace());
+                }
+                // and any connected cable which isn't part of a net
+                addConnectedCables(cable, net);
+                break;
+            default:
+                // connected to more than one different net!
+                // delete those nets, then re-scan and build a new single unified net
+                for (int netId : netIds) {
+                    deleteEnergyNet(netId);
+                }
+
                 STBEnergyNet newNet = STBEnergyNet.buildNet(cable, this);
                 allNets.put(newNet.getNetID(), newNet);
-                addConnectedCables(cable, newNet);
-            }
-            break;
-        case 1:
-            // connected to a single net; just add this cable to that net
-            Integer[] id = netIds.toArray(new Integer[1]);
-            STBEnergyNet net = allNets.get(id[0]);
-            net.addCable(cable);
-            // attach any adjacent machines
-            adjacentMachines = getAdjacentMachines(cable);
-            for (AdjacentMachine record : adjacentMachines) {
-                net.addMachine(record.getMachine(), record.getDirection().getOppositeFace());
-            }
-            // and any connected cable which isn't part of a net
-            addConnectedCables(cable, net);
-            break;
-        default:
-            // connected to more than one different net!
-            // delete those nets, then re-scan and build a new single unified net
-            for (int netId : netIds) {
-                deleteEnergyNet(netId);
-            }
-
-            STBEnergyNet newNet = STBEnergyNet.buildNet(cable, this);
-            allNets.put(newNet.getNetID(), newNet);
         }
     }
 
@@ -122,7 +122,7 @@ public class EnergyNetManager {
         final List<Block> attachedCables = new ArrayList<>();
         final List<BaseSTBMachine> attachedMachines = new ArrayList<>();
 
-        for (BlockFace face : STBUtil.DIRECT_BLOCK_FACES) {
+        for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             Block b = cable.getRelative(face);
 
             if (STBUtil.isCable(b)) {
@@ -166,7 +166,7 @@ public class EnergyNetManager {
     public void onMachinePlaced(ChargeableBlock machine) {
         Block b = machine.getLocation().getBlock();
         // scan adjacent blocks for cables
-        for (BlockFace face : STBUtil.DIRECT_BLOCK_FACES) {
+        for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             Block cable = b.getRelative(face);
 
             if (STBUtil.isCable(cable)) {
@@ -201,7 +201,7 @@ public class EnergyNetManager {
      *            net to add cabling to
      */
     private void addConnectedCables(Block start, STBEnergyNet net) {
-        for (BlockFace face : STBUtil.DIRECT_BLOCK_FACES) {
+        for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             Block b = start.getRelative(face);
 
             if (STBUtil.isCable(b)) {
@@ -219,7 +219,7 @@ public class EnergyNetManager {
     private static List<AdjacentMachine> getAdjacentMachines(@Nonnull Block cable) {
         final List<AdjacentMachine> attachedMachines = new ArrayList<>();
 
-        for (BlockFace face : STBUtil.DIRECT_BLOCK_FACES) {
+        for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             Block b = cable.getRelative(face);
             BaseSTBMachine machine = LocationManager.getManager().get(b.getLocation(), BaseSTBMachine.class);
 
@@ -242,7 +242,7 @@ public class EnergyNetManager {
     private Set<Integer> getAdjacentNets(@Nonnull Block startBlock) {
         Set<Integer> res = new HashSet<>();
 
-        for (BlockFace face : STBUtil.DIRECT_BLOCK_FACES) {
+        for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             EnergyNet net = getEnergyNet(startBlock.getRelative(face));
 
             if (net != null) {

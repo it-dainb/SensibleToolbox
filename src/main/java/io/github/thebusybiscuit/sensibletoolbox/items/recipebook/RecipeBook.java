@@ -232,14 +232,14 @@ public class RecipeBook extends BaseSTBItem {
 
     private boolean includeItem(@Nullable BaseSTBItem stbItem) {
         switch (recipeTypeFilter) {
-        case ALL:
-            return stbItem == null || (stbItem.checkPlayerPermission(player, ItemAction.CRAFT) && (providerNames.isEmpty() || providerNames.contains(stbItem.getProviderPlugin().getName())));
-        case VANILLA:
-            return stbItem == null;
-        case STB:
-            return stbItem != null && stbItem.checkPlayerPermission(player, ItemAction.CRAFT) && (providerNames.isEmpty() || providerNames.contains(stbItem.getProviderPlugin().getName()));
-        default:
-            return true;
+            case ALL:
+                return stbItem == null || (stbItem.checkPlayerPermission(player, ItemAction.CRAFT) && (providerNames.isEmpty() || providerNames.contains(stbItem.getProviderPlugin().getName())));
+            case VANILLA:
+                return stbItem == null;
+            case STB:
+                return stbItem != null && stbItem.checkPlayerPermission(player, ItemAction.CRAFT) && (providerNames.isEmpty() || providerNames.contains(stbItem.getProviderPlugin().getName()));
+            default:
+                return true;
         }
     }
 
@@ -366,7 +366,7 @@ public class RecipeBook extends BaseSTBItem {
             return;
         }
 
-        for (BlockFace face : STBUtil.DIRECT_BLOCK_FACES) {
+        for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             Block b = fabricationBlock.getRelative(face);
 
             if (VanillaInventoryUtils.isVanillaInventory(b) && SensibleToolbox.getProtectionManager().hasPermission(player, b, ProtectableAction.ACCESS_INVENTORIES)) {
