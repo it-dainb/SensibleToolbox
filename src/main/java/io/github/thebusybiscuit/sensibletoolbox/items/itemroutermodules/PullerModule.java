@@ -1,5 +1,6 @@
 package io.github.thebusybiscuit.sensibletoolbox.items.itemroutermodules;
 
+import me.desht.dhutils.Debugger;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -12,6 +13,11 @@ public class PullerModule extends DirectionalItemRouterModule {
 
     public PullerModule(ConfigurationSection conf) {
         super(conf);
+    }
+
+    @Override
+    public Material getMaterial() {
+        return Material.LIME_DYE;
     }
 
     @Override
@@ -32,11 +38,6 @@ public class PullerModule extends DirectionalItemRouterModule {
         recipe.addIngredient(bm.getMaterial());
         recipe.addIngredient(Material.STICKY_PISTON);
         return recipe;
-    }
-
-    @Override
-    public Material getMaterial() {
-        return Material.LIME_DYE;
     }
 
     @Override
