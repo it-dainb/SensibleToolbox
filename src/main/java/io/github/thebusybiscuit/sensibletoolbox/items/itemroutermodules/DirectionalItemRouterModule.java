@@ -274,6 +274,13 @@ public abstract class DirectionalItemRouterModule extends ItemRouterModule imple
     }
 
     protected boolean doPull(BlockFace from, Location loc) {
+
+/*        if (getItemRouter() != null && getItemRouter().getBufferItem() != null) {
+            if (getFilter() != null && !getFilter().shouldPass(getItemRouter().getBufferItem())) {
+                return false;
+            }
+        }*/
+
         ItemStack inBuffer = getItemRouter().getBufferItem();
 
         if (inBuffer != null && inBuffer.getAmount() >= inBuffer.getType().getMaxStackSize()) {
