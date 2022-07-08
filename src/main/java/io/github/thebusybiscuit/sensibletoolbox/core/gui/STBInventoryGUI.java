@@ -39,6 +39,8 @@ import io.github.thebusybiscuit.sensibletoolbox.utils.IntRange;
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.text.LogUtils;
 
+import javax.annotation.Nonnull;
+
 public class STBInventoryGUI implements InventoryGUI {
 
     // some handy stock textures
@@ -103,6 +105,10 @@ public class STBInventoryGUI implements InventoryGUI {
         } else {
             player.removeMetadata(STB_OPEN_GUI, SensibleToolboxPlugin.getInstance());
         }
+    }
+
+    private boolean hasOpenGUI(@Nonnull Player player) {
+        return getOpenGUI(player) == null;
     }
 
     @Override
@@ -199,10 +205,19 @@ public class STBInventoryGUI implements InventoryGUI {
                 monitor.doRepaint();
             }
         }
-        Debugger.getInstance().debug(player.getName() + " opened GUI for " + getOwningItem());
-        setOpenGUI(player, this);
-        listener.onGUIOpened(player);
-        player.openInventory(inventory);
+        if (hasOpenGUI(player)) {
+            Debugger.getInstance().debug(player.getName() + " opened GUI for " + getOwningItem());
+            setOpenGUI(player, this);
+            listener.onGUIOpened(player);
+            player.openInventory(inventory);
+        }
+    }
+
+    @Override
+    public void hideForAll() {
+        for (HumanEntity player : new ArrayList<>(inventory.getViewers())) {
+            hide((Player) player);
+        }
     }
 
     @Override
