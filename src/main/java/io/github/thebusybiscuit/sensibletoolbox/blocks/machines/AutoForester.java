@@ -71,10 +71,11 @@ public class AutoForester extends AutoFarmingMachine {
     @Override
     public void onBlockRegistered(Location location, boolean isPlacing) {
         int i = RADIUS / 2;
+        Block block = location.getBlock();
 
         for (int x = -i; x <= i; x++) {
             for (int z = -i; z <= i; z++) {
-                blocks.add(new Location(location.getWorld(), location.getBlockX() + (double) x, location.getBlockY() + 2.0, location.getBlockZ() + (double) z).getBlock());
+                blocks.add(block.getRelative(x, 2, z));
             }
         }
 
