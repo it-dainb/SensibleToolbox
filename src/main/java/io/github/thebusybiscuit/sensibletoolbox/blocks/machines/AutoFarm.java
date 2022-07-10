@@ -101,15 +101,17 @@ public class AutoFarm extends AutoFarmingMachine {
                 for (Block crop : blocks) {
                     if (crops.containsKey(crop.getType())) {
                         Ageable ageable = (Ageable) crop.getBlockData();
+
                         if (ageable.getAge() >= ageable.getMaximumAge()) {
-                            setCharge(getCharge() - getScuPerCycle());
+                            if (getCharge() >= getScuPerCycle()) {
+                                setCharge(getCharge() - getScuPerCycle());
+                            } else {
+                                break;
+                            }
 
                             BlockData data = crop.getBlockData();
-                            if (ageable instanceof Ageable) {
-                                Ageable m_ageable = (Ageable) data;
-                                m_ageable.setAge(0);
-                                data = m_ageable;
-                            }
+                            Ageable cropData = (Ageable) data;
+                            cropData.setAge(0);
 
                             crop.setBlockData(data);
                             crop.getWorld().playEffect(crop.getLocation(), Effect.STEP_SOUND, crop.getType());
