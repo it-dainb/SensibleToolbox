@@ -449,6 +449,7 @@ public class BigStorageUnit extends AbstractProcessingMachine {
             case IRON_AXE:
             case GOLDEN_AXE:
             case DIAMOND_AXE:
+            case NETHERITE_AXE:
                 return false;
             default:
                 return true;
