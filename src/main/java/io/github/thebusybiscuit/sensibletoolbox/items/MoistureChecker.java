@@ -3,13 +3,16 @@ package io.github.thebusybiscuit.sensibletoolbox.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.desht.dhutils.Debugger;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Ageable;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.type.Farmland;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -116,18 +119,24 @@ public class MoistureChecker extends BaseSTBItem {
         int saturation = SoilSaturation.getSaturationLevel(b);
         saturation = Math.max(0, saturation - (int) delta);
 
-        if (saturation < 10) {
-            return Material.YELLOW_WOOL.createBlockData();
-        } else if (saturation < 30) {
-            return Material.BROWN_WOOL.createBlockData();
-        } else if (saturation < 50) {
-            return Material.GREEN_WOOL.createBlockData();
-        } else if (saturation < 70) {
-            return Material.LIGHT_BLUE_WOOL.createBlockData();
-        } else if (saturation < 90) {
-            return Material.CYAN_WOOL.createBlockData();
+        Farmland farmland = (Farmland) b.getBlockData();
+        if (farmland.getMoisture() != 0)
+        {
+            if (saturation < 10) {
+                return Material.YELLOW_WOOL.createBlockData();
+            } else if (saturation < 30) {
+                return Material.BROWN_WOOL.createBlockData();
+            } else if (saturation < 50) {
+                return Material.GREEN_WOOL.createBlockData();
+            } else if (saturation < 70) {
+                return Material.LIGHT_BLUE_WOOL.createBlockData();
+            } else if (saturation < 90) {
+                return Material.CYAN_WOOL.createBlockData();
+            } else {
+                return Material.BLUE_WOOL.createBlockData();
+            }
         } else {
-            return Material.BLUE_WOOL.createBlockData();
+            return Material.BLACK_WOOL.createBlockData();
         }
     }
 }
