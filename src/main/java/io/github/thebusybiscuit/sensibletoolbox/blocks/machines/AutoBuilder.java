@@ -274,8 +274,9 @@ public class AutoBuilder extends BaseSTBMachine {
                     if (b.getType().getHardness() < 3600000) {
                         scuNeeded = baseScuPerOp * b.getType().getHardness();
 
-                        if (scuNeeded > getCharge()) {
+                        if (scuNeeded > getCharge() || b.getType().getHardness() == -1.0F) {
                             advanceBuildPos = false;
+                            setStatus(BuilderStatus.HALTED);
                         } else if (b.getType() != Material.AIR) {
                             b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, b.getType());
                             BaseSTBBlock stb = SensibleToolbox.getBlockAt(b.getLocation());
@@ -616,6 +617,7 @@ public class AutoBuilder extends BaseSTBMachine {
         LM_WORLDS_DIFFERENT(DyeColor.RED, "Land Markers are", "from different worlds!"),
         RUNNING(DyeColor.LIGHT_BLUE, "Builder is running", "Press Start button to pause"),
         PAUSED(DyeColor.ORANGE, "Builder has been paused", "Press Start button to resume"),
+        HALTED(DyeColor.BLACK, "Builder has encountered", "an unbreakable block!"),
         FINISHED(DyeColor.WHITE, "Builder has finished!", "Ready for next operation");
 
         private final DyeColor color;
