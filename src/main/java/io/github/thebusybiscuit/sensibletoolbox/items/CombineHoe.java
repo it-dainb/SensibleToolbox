@@ -120,7 +120,7 @@ public abstract class CombineHoe extends BaseSTBItem {
                 plantSeeds(event.getPlayer(), b);
                 event.setCancelled(true);
                 return;
-            } else if (b.getType() == Material.DIRT || b.getType() == Material.GRASS) {
+            } else if (b.getType() == Material.DIRT || b.getType() == Material.GRASS_BLOCK) {
                 tillSoil(event.getPlayer(), event.getItem(), event.getHand(), b);
                 event.setCancelled(true);
                 return;
@@ -318,7 +318,7 @@ public abstract class CombineHoe extends BaseSTBItem {
 
             Block above = b1.getRelative(BlockFace.UP);
 
-            if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS) && !above.getType().isSolid() && !above.isLiquid()) {
+            if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS_BLOCK) && !above.getType().isSolid() && !above.isLiquid()) {
                 b1.setType(Material.FARMLAND);
                 count++;
 
