@@ -133,7 +133,7 @@ public class AdvancedSenderModule extends DirectionalItemRouterModule {
     }
 
     private int sendItems(ReceiverModule receiver) {
-        Debugger.getInstance().debug(this.getItemRouter() + ": adv.sender sending items to receiver module in " + receiver.getItemRouter());
+        Debugger.getInstance().debug(3,this.getItemRouter() + ": adv.sender sending items to receiver module in " + receiver.getItemRouter());
         int nToSend = getItemRouter().getStackSize();
         ItemStack toSend = getItemRouter().getBufferItem().clone();
         toSend.setAmount(Math.min(nToSend, toSend.getAmount()));
