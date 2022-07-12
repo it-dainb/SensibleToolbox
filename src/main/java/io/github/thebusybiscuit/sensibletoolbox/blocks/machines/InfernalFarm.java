@@ -79,6 +79,8 @@ public class InfernalFarm extends AutoFarm {
                 blocks.add(block.getRelative(x, 2, z));
             }
         }
+        //Without this, the machine stops updating the charge after a restart.
+        super.onBlockRegistered(location, isPlacing);
     }
 
     @Override
