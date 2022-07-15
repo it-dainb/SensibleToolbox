@@ -5,6 +5,8 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
+import me.desht.dhutils.Debugger;
+import me.desht.dhutils.MiscUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -36,6 +38,9 @@ import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
 
 import me.desht.dhutils.cuboid.Cuboid;
 import me.desht.dhutils.cuboid.CuboidDirection;
+
+import com.griefdefender.api.GriefDefender;
+import com.griefdefender.api.claim.Claim;
 
 public abstract class CombineHoe extends BaseSTBItem {
 
@@ -323,28 +328,36 @@ public abstract class CombineHoe extends BaseSTBItem {
         int count = 0;
         int damage = ((Damageable) stack.getItemMeta()).getDamage();
 
+
         for (Block b1 : STBUtil.getSurroundingBlocks(b)) {
+
             if (!SensibleToolbox.getProtectionManager().hasPermission(player, b1, Interaction.BREAK_BLOCK)) {
                 continue;
             }
 
             Block above = b1.getRelative(BlockFace.UP);
+            final Claim claim = GriefDefender.getCore().getClaimAt(b1.getLocation());
 
-            if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS_BLOCK) && !above.getType().isSolid() && !above.isLiquid()) {
-                b1.setType(Material.FARMLAND);
-                count++;
+            if (claim != null && claim.isWilderness()) {
 
-                if (!above.isEmpty()) {
-                    above.breakNaturally();
+                if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS_BLOCK) && !above.getType().isSolid() && !above.isLiquid()) {
+                    b1.setType(Material.FARMLAND);
+                    count++;
+
+                    if (!above.isEmpty()) {
+                        above.breakNaturally();
+                    }
+
+                    if (damage + count >= stack.getType().getMaxDurability()) {
+                        break;
+                    }
                 }
 
-                if (damage + count >= stack.getType().getMaxDurability()) {
+                if (player.isSneaking()) {
                     break;
                 }
-            }
-
-            if (player.isSneaking()) {
-                break;
+            } else {
+                MiscUtil.errorMessage(player, "You do not have permission to till soil here.");
             }
         }
 
