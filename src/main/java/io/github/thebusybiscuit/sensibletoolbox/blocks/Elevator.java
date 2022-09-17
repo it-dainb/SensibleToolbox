@@ -78,7 +78,7 @@ public class Elevator extends BaseSTBBlock implements Colorable {
         Block b = getLocation().getBlock();
         Elevator res = null;
 
-        while (b.getY() > 0 && b.getY() < b.getWorld().getMaxHeight()) {
+        while (b.getY() >= -64 && b.getY() < b.getWorld().getMaxHeight()) {
             b = b.getRelative(direction);
 
             if (b.getType().isSolid()) {
