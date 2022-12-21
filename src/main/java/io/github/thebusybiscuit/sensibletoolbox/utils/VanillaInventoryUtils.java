@@ -134,7 +134,11 @@ public final class VanillaInventoryUtils {
                     excess = addToBrewingStand((BrewerInventory) targetInv, stack, side);
                     break;
                 default:
-                    excess = targetInv.addItem(stack);
+                    if (amount != targetInv.getMaxStackSize()) {
+                        excess = targetInv.addItem(stack);
+                    } else {
+                        excess = targetInv.addItem(source);
+                    }
                     break;
             }
 
