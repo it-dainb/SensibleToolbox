@@ -127,7 +127,7 @@ public class PaintBrush extends BaseSTBItem {
     @Override
     public Recipe getMainRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), toItemStack());
-        recipe.shape("R", "S", "S");
+        recipe.shape("R  ", "S  ", "S  ");
         recipe.setIngredient('R', Material.STRING);
         recipe.setIngredient('S', Material.STICK);
         return recipe;
