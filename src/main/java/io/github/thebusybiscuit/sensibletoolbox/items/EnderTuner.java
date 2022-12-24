@@ -75,7 +75,7 @@ public class EnderTuner extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 
     @Override

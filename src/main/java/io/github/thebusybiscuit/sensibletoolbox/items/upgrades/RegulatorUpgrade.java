@@ -45,6 +45,6 @@ public class RegulatorUpgrade extends AbstractMachineUpgrade {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 }

@@ -65,7 +65,7 @@ public class MoistureChecker extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 
     protected int getRadius() {

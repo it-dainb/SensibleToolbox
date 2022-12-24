@@ -44,7 +44,7 @@ public class EnergizedIronDust extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 
     @Override

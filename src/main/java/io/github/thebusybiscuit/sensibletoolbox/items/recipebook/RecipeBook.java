@@ -297,7 +297,7 @@ public class RecipeBook extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return isAdvanced();
+        return false;
     }
 
     @Override

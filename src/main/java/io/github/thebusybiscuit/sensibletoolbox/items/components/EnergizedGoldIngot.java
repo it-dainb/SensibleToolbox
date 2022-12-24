@@ -36,6 +36,6 @@ public class EnergizedGoldIngot extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 }

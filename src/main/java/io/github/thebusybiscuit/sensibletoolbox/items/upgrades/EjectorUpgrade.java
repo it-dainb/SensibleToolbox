@@ -45,7 +45,7 @@ public class EjectorUpgrade extends AbstractMachineUpgrade implements Directiona
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 
     @Override
