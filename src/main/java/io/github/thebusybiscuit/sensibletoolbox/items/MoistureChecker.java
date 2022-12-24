@@ -56,7 +56,7 @@ public class MoistureChecker extends BaseSTBItem {
         SimpleCircuit sc = new SimpleCircuit();
         registerCustomIngredients(sc);
         ShapedRecipe recipe = new ShapedRecipe(getKey(), toItemStack());
-        recipe.shape("SCT", "   ", "   ");
+        recipe.shape("SCI", "   ", "   ");
         recipe.setIngredient('S', Material.OAK_SIGN);
         recipe.setIngredient('C', sc.getMaterial());
         recipe.setIngredient('I', Material.GOLDEN_SWORD);
