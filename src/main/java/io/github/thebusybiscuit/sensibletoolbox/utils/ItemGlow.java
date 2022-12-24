@@ -5,7 +5,9 @@ import javax.annotation.Nullable;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.Plugin;
 
 import com.comphenix.protocol.PacketType;
@@ -43,7 +45,7 @@ public final class ItemGlow {
      *            the plugin instance
      */
     public static void init(@Nonnull Plugin plugin) {
-        PacketAdapter adapter = new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.SET_SLOT, PacketType.Play.Server.WINDOW_ITEMS) {
+        PacketAdapter adapter = new PacketAdapter(plugin, ListenerPriority.NORMAL, PacketType.Play.Server.SET_SLOT) {
 
             @Override
             public void onPacketSending(PacketEvent event) {
@@ -74,13 +76,18 @@ public final class ItemGlow {
         }
 
         Enchantment flag = getFlag(stack);
+        ItemMeta m = stack.getItemMeta();
 
         if (glowing) {
             // if the item already has a real enchantment, let's not overwrite it!
             if (!stack.getItemMeta().hasEnchant(flag)) {
+                m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+                stack.setItemMeta(m);
                 stack.addUnsafeEnchantment(flag, GLOW_FLAG_LEVEL);
             }
         } else if (stack.getEnchantmentLevel(flag) == GLOW_FLAG_LEVEL) {
+            m.addItemFlags(ItemFlag.HIDE_ENCHANTS);
+            stack.setItemMeta(m);
             stack.removeEnchantment(flag);
         }
     }
@@ -93,6 +100,7 @@ public final class ItemGlow {
      * @return true if the stack will glow; false otherwise
      */
     public static boolean hasGlow(@Nullable ItemStack stack) {
+
         if (stack == null) {
             return false;
         } else {
