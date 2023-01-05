@@ -9,7 +9,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.MainHand;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 
@@ -84,8 +86,12 @@ public abstract class EnergyCell extends BaseSTBItem implements Chargeable {
     @Override
     public void onInteractItem(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK) {
-            event.setCancelled(true);
-            chargeHotbarItems(event.getPlayer());
+            if (event.getHand() == EquipmentSlot.HAND) {
+                event.setCancelled(true);
+                chargeHotbarItems(event.getPlayer());
+            } else if (event.getHand() == EquipmentSlot.OFF_HAND) {
+                event.setCancelled(true);
+            }
         }
     }
 
