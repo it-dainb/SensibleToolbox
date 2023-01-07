@@ -26,11 +26,7 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
-import org.bukkit.inventory.CraftingInventory;
-import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.inventory.Recipe;
+import org.bukkit.inventory.*;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.permissions.Permissible;
 import org.bukkit.plugin.Plugin;
@@ -326,6 +322,7 @@ public abstract class BaseSTBItem implements Comparable<BaseSTBItem>, InventoryG
         String suffix = getDisplaySuffix() == null ? "" : SUFFIX_SEPARATOR + getDisplaySuffix();
         im.setDisplayName(DISPLAY_COLOR + getItemName() + suffix);
         im.setLore(buildLore());
+        im.addItemFlags(ItemFlag.HIDE_ENCHANTS);
 
         // any serialized data from the object goes in the ItemStack attributes
         YamlConfiguration conf = freeze();
