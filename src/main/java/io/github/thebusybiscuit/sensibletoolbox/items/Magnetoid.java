@@ -1,19 +1,16 @@
 package io.github.thebusybiscuit.sensibletoolbox.items;
 
-import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBItem;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.IntegratedCircuit;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.SubspaceTransponder;
 import io.github.thebusybiscuit.sensibletoolbox.items.energycells.EnergyCell;
 import io.github.thebusybiscuit.sensibletoolbox.items.energycells.FiftyKEnergyCell;
 import io.github.thebusybiscuit.sensibletoolbox.items.itemroutermodules.VacuumModule;
 
-import me.desht.dhutils.Debugger;
-import org.bukkit.*;
+import org.bukkit.ChatColor;
+import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.event.block.Action;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
-import org.jetbrains.annotations.Debug;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
