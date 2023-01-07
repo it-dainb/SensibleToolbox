@@ -3,24 +3,42 @@ package io.github.thebusybiscuit.sensibletoolbox.items;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBItem;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.IntegratedCircuit;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.SubspaceTransponder;
+import io.github.thebusybiscuit.sensibletoolbox.items.energycells.EnergyCell;
 import io.github.thebusybiscuit.sensibletoolbox.items.energycells.FiftyKEnergyCell;
 import io.github.thebusybiscuit.sensibletoolbox.items.itemroutermodules.VacuumModule;
 
+import me.desht.dhutils.Debugger;
 import org.bukkit.*;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.*;
+import org.jetbrains.annotations.Debug;
 
 import javax.annotation.ParametersAreNonnullByDefault;
 
-public class Magnetoid extends BaseSTBItem {
-
-    private static final int RADIUS = 6;
+public class Magnetoid extends EnergyCell {
 
     @ParametersAreNonnullByDefault
     public Magnetoid() { super(); }
 
     public Magnetoid(ConfigurationSection conf) {
         super(conf);
+    }
+
+    @Override
+    public int getMaxCharge() {
+        return 250000;
+    }
+
+    @Override
+    public int getChargeRate() {
+        return 1000;
+    }
+
+    @Override
+    public Color getCellColor() {
+        return null;
     }
 
     public Material getMaterial() {
@@ -34,7 +52,7 @@ public class Magnetoid extends BaseSTBItem {
 
     @Override
     public String[] getLore() {
-        return new String[] { "Collects objects in a " + RADIUS, "block radius after breaking", "blocks, or damaging mobs", ChatColor.GOLD + "Offhand Gadget" };
+        return new String[] { "Collects objects in a 8", "block radius automatically.", ChatColor.AQUA + "Offhand Gadget" };
     }
 
     @Override
