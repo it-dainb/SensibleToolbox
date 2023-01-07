@@ -11,6 +11,7 @@ import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
 import io.github.thebusybiscuit.sensibletoolbox.listeners.*;
+import io.github.thebusybiscuit.sensibletoolbox.utils.MagnetoidTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -180,6 +181,7 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
     private ConfigCache configCache;
     private IDTracker<SCURelayConnection> scuRelayIDTracker;
     private ProtectionManager protectionManager;
+    private MagnetoidTask magnetoidCheckTask;
 
     @Override
     public void onEnable() {
@@ -262,6 +264,9 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
             PluginUpdater<PrefixedVersion> updater = new GitHubBuildsUpdater(this, getFile(), "Slimefun/SensibleToolbox/master");
             updater.start();
         }
+
+        magnetoidCheckTask = new MagnetoidTask(this);
+        magnetoidCheckTask.runTaskTimer(this, 0, 5L);
 
         enabled = true;
     }
@@ -455,7 +460,6 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
         pm.registerEvents(new TrashCanListener(this), this);
         pm.registerEvents(new ElevatorListener(this), this);
         pm.registerEvents(new AnvilListener(this), this);
-        pm.registerEvents(new MagnetoidListener(this), this);
 
         if (isProtocolLibEnabled()) {
             soundMufflerListener = new SoundMufflerListener(this);
