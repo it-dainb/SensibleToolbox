@@ -1,5 +1,7 @@
 package io.github.thebusybiscuit.sensibletoolbox.blocks;
 
+import javax.annotation.Nonnull;
+
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Location;
@@ -17,7 +19,9 @@ import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.util.Vector;
 
-import io.github.thebusybiscuit.cscorelib2.protection.ProtectableAction;
+import io.github.bakedlibs.dough.protection.Interaction;
+import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
+import io.github.thebusybiscuit.sensibletoolbox.api.MinecraftVersion;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
@@ -46,7 +50,7 @@ public class AngelicBlock extends BaseSTBBlock {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), this.toItemStack());
         recipe.shape(" G ", "FOF");
         recipe.setIngredient('G', Material.GOLD_INGOT);
@@ -64,7 +68,7 @@ public class AngelicBlock extends BaseSTBBlock {
             Location loc = p.getEyeLocation().add(v);
             Block b = loc.getBlock();
 
-            if (b.isEmpty() && SensibleToolbox.getProtectionManager().hasPermission(p, b, ProtectableAction.PLACE_BLOCK)) {
+            if (b.isEmpty() && SensibleToolbox.getProtectionManager().hasPermission(p, b, Interaction.PLACE_BLOCK) && isWithinWorldBounds(b)) {
                 ItemStack stack = event.getItem();
 
                 if (stack.getAmount() > 1) {
@@ -81,13 +85,24 @@ public class AngelicBlock extends BaseSTBBlock {
         event.setCancelled(true);
     }
 
+    private boolean isWithinWorldBounds(@Nonnull Block b) {
+        Location loc = b.getLocation();
+        int minHeight;
+        if (SensibleToolboxPlugin.getMinecraftVersion().isAtLeast(MinecraftVersion.MINECRAFT_1_16)) {
+            minHeight = loc.getWorld().getMinHeight();
+        } else {
+            minHeight = 0;
+        }
+        return loc.getY() > minHeight && loc.getY() < loc.getWorld().getMaxHeight();
+    }
+
     @Override
     public void onBlockDamage(BlockDamageEvent event) {
         // the angelic block has just been hit by a player - insta-break it
         Player p = event.getPlayer();
         Block b = event.getBlock();
 
-        if (SensibleToolbox.getProtectionManager().hasPermission(p, b, ProtectableAction.BREAK_BLOCK)) {
+        if (SensibleToolbox.getProtectionManager().hasPermission(p, b, Interaction.BREAK_BLOCK)) {
             b.getWorld().playEffect(b.getLocation(), Effect.STEP_SOUND, b.getType());
             breakBlock(false);
             STBUtil.giveItems(p, toItemStack());
@@ -98,7 +113,8 @@ public class AngelicBlock extends BaseSTBBlock {
 
     @Override
     public boolean onEntityExplode(EntityExplodeEvent event) {
-        return false; // immune to explosions
+        // immune to explosions
+        return false;
     }
 
     @Override

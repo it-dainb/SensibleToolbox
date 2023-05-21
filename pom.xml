@@ -20,7 +20,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <!-- Spigot properties -->
-        <spigot.version>1.16.5</spigot.version>
+        <spigot.version>1.18.1</spigot.version>
         <spigot.javadocs>https://hub.spigotmc.org/javadocs/spigot/</spigot.javadocs>
 
         <!-- Default settings for sonarcloud.io -->
@@ -67,7 +67,7 @@
         </repository>
         <repository>
             <id>worldedit-repo</id>
-            <url>https://maven.sk89q.com/repo/</url>
+            <url>https://maven.enginehub.org/repo/</url>
         </repository>
     </repositories>
 
@@ -114,11 +114,15 @@
                     <relocations>
                         <relocation>
                             <pattern>org.bstats</pattern>
-                            <shadedPattern>io.github.thebusybiscuit.sensibletoolbox.bstats</shadedPattern>
+                            <shadedPattern>io.github.thebusybiscuit.sensibletoolbox.libraries.bstats</shadedPattern>
                         </relocation>
                         <relocation>
-                            <pattern>io.github.thebusybiscuit.cscorelib2</pattern>
-                            <shadedPattern>io.github.thebusybiscuit.sensibletoolbox.cscorelib2</shadedPattern>
+                            <pattern>io.papermc.lib</pattern>
+                            <shadedPattern>io.github.thebusybiscuit.sensibletoolbox.libraries.paperlib</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>io.github.bakedlibs.dough</pattern>
+                            <shadedPattern>io.github.thebusybiscuit.sensibletoolbox.libraries.dough</shadedPattern>
                         </relocation>
                     </relocations>
 
@@ -147,7 +151,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.2.0</version>
+                <version>3.3.1</version>
 
                 <configuration>
                     <reportOutputDirectory>${project.basedir}</reportOutputDirectory>
@@ -196,19 +200,6 @@
         </dependency>
 
         <dependency>
-            <groupId>com.github.TheBusyBiscuit</groupId>
-            <artifactId>Slimefun4</artifactId>
-            <version>RC-22</version>
-            <scope>provided</scope>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.github.thebusybiscuit</groupId>
-                    <artifactId>cscorelib2</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-
-        <dependency>
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
             <version>3.0.2</version>
@@ -218,21 +209,35 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>4.6.0</version>
+            <version>4.7.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
             <groupId>com.gmail.filoghost.holographicdisplays</groupId>
             <artifactId>holographicdisplays-api</artifactId>
-            <version>2.4.6</version>
+            <version>2.4.9</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.thebusybiscuit</groupId>
-            <artifactId>CS-CoreLib2</artifactId>
-            <version>0.30.4</version>
+            <groupId>com.github.TheBusyBiscuit</groupId>
+            <artifactId>Slimefun4</artifactId>
+            <version>RC-30</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.github.baked-libs</groupId>
+            <artifactId>dough-api</artifactId>
+            <version>1.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.papermc</groupId>
+            <artifactId>paperlib</artifactId>
+            <version>1.0.7</version>
             <scope>compile</scope>
         </dependency>
 
@@ -246,7 +251,7 @@
         <dependency>
             <groupId>com.sk89q.worldedit</groupId>
             <artifactId>worldedit-bukkit</artifactId>
-            <version>7.2.5</version>
+            <version>7.2.8</version>
             <scope>provided</scope>
             <exclusions>
                 <exclusion>

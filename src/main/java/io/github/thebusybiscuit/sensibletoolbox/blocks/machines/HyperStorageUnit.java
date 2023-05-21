@@ -11,7 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-import io.github.thebusybiscuit.cscorelib2.inventory.ItemUtils;
+import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.IntegratedCircuit;
 
 public class HyperStorageUnit extends BigStorageUnit {
@@ -35,7 +35,7 @@ public class HyperStorageUnit extends BigStorageUnit {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         IntegratedCircuit ic = new IntegratedCircuit();
         BigStorageUnit bsu = new BigStorageUnit();
         registerCustomIngredients(ic, bsu);
@@ -77,7 +77,8 @@ public class HyperStorageUnit extends BigStorageUnit {
 
     @Override
     public int getStackCapacity() {
-        return 33554431; // 2^31 items for a 64-item stack
+        // 2^31 items for a 64-item stack
+        return 33554431;
     }
 
     @Override

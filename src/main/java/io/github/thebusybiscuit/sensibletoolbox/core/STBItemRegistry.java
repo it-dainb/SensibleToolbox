@@ -28,7 +28,7 @@ import org.bukkit.permissions.Permission;
 import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.Plugin;
 
-import io.github.thebusybiscuit.cscorelib2.data.PersistentDataAPI;
+import io.github.bakedlibs.dough.data.persistent.PersistentDataAPI;
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.ItemRegistry;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;

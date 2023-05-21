@@ -25,7 +25,8 @@ public class Smelter extends AbstractIOMachine {
 
     private static int getProcessingTime(ItemStack stack) {
         if (stack.getType().isEdible()) {
-            return 40; // food cooks a lot quicker than ores etc.
+            // food cooks a lot quicker than ores etc.
+            return 40;
         }
 
         return 120;
@@ -96,7 +97,7 @@ public class Smelter extends AbstractIOMachine {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         SimpleCircuit sc = new SimpleCircuit();
         MachineFrame mf = new MachineFrame();
         registerCustomIngredients(sc, mf);

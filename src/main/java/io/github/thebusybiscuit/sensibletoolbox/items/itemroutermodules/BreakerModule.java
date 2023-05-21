@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapelessRecipe;
 
-import io.github.thebusybiscuit.cscorelib2.protection.ProtectableAction;
+import io.github.bakedlibs.dough.protection.Interaction;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 
 public class BreakerModule extends DirectionalItemRouterModule {
@@ -44,7 +44,7 @@ public class BreakerModule extends DirectionalItemRouterModule {
         ItemStack inBuffer = getItemRouter().getBufferItem();
 
         if (inBuffer == null || inBuffer.isSimilar(mainDrop) && inBuffer.getAmount() < inBuffer.getMaxStackSize()) {
-            if (getFilter().shouldPass(mainDrop) && SensibleToolbox.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(getItemRouter().getOwner()), b, ProtectableAction.BREAK_BLOCK)) {
+            if (getFilter().shouldPass(mainDrop) && SensibleToolbox.getProtectionManager().hasPermission(Bukkit.getOfflinePlayer(getItemRouter().getOwner()), b, Interaction.BREAK_BLOCK)) {
                 if (inBuffer == null) {
                     getItemRouter().setBufferItem(mainDrop);
                 } else {
@@ -86,7 +86,7 @@ public class BreakerModule extends DirectionalItemRouterModule {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         BlankModule bm = new BlankModule();
         registerCustomIngredients(bm);
         ShapelessRecipe recipe = new ShapelessRecipe(getKey(), toItemStack());

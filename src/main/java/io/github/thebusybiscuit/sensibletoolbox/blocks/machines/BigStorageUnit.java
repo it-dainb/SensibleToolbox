@@ -26,13 +26,14 @@ import org.bukkit.inventory.RecipeChoice.MaterialChoice;
 import org.bukkit.inventory.ShapedRecipe;
 import org.bukkit.metadata.FixedMetadataValue;
 
-import io.github.thebusybiscuit.cscorelib2.inventory.ItemUtils;
+import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.GUIUtil;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.gadgets.ToggleButton;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.AbstractProcessingMachine;
 import io.github.thebusybiscuit.sensibletoolbox.utils.BukkitSerialization;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+
 import me.desht.dhutils.Debugger;
 
 public class BigStorageUnit extends AbstractProcessingMachine {
@@ -213,7 +214,7 @@ public class BigStorageUnit extends AbstractProcessingMachine {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), toItemStack());
         recipe.shape("LSL", "L L", "LLL");
         recipe.setIngredient('L', new MaterialChoice(Tag.LOGS));
@@ -341,7 +342,8 @@ public class BigStorageUnit extends AbstractProcessingMachine {
         if (getProcessing() != null && dropsItemsOnBreak()) {
             // dump contents on floor (could make a big mess)
             Location current = getLocation();
-            storageAmount = Math.min(4096, storageAmount); // max 64 stacks will be dropped
+            // max 64 stacks will be dropped
+            storageAmount = Math.min(4096, storageAmount);
 
             while (storageAmount > 0) {
                 ItemStack stack = stored.clone();

@@ -30,8 +30,9 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-import io.github.thebusybiscuit.cscorelib2.inventory.ItemUtils;
-import io.github.thebusybiscuit.cscorelib2.protection.ProtectableAction;
+import io.github.bakedlibs.dough.items.ItemUtils;
+import io.github.bakedlibs.dough.protection.Interaction;
+import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.energy.Chargeable;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBItem;
@@ -40,10 +41,12 @@ import io.github.thebusybiscuit.sensibletoolbox.items.energycells.TenKEnergyCell
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
 import io.github.thebusybiscuit.sensibletoolbox.utils.UnicodeSymbol;
 import io.github.thebusybiscuit.sensibletoolbox.utils.VanillaInventoryUtils;
+
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.blocks.BlockAndPosition;
 import me.desht.dhutils.blocks.BlockUtil;
 import me.desht.dhutils.cost.ItemCost;
+import me.mrCookieSlime.Slimefun.api.BlockStorage;
 
 public class MultiBuilder extends BaseSTBItem implements Chargeable {
 
@@ -125,7 +128,7 @@ public class MultiBuilder extends BaseSTBItem implements Chargeable {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), toItemStack());
         TenKEnergyCell cell = new TenKEnergyCell();
         cell.setCharge(0.0);
@@ -253,15 +256,22 @@ public class MultiBuilder extends BaseSTBItem implements Chargeable {
     }
 
     protected boolean canReplace(Player player, Block b) {
-        // we won't replace any block which can hold items, or any STB block, or any unbreakable block
+        // Check for non-replaceable block types.
+        // STB Blocks
         if (SensibleToolbox.getBlockAt(b.getLocation(), true) != null) {
             return false;
+            // Vanilla inventories
         } else if (VanillaInventoryUtils.isVanillaInventory(b)) {
             return false;
+            // Slimefun Blocks
+        } else if (SensibleToolboxPlugin.getInstance().isSlimefunEnabled() && BlockStorage.hasBlockInfo(b)) {
+            return false;
+            // Unbreakable Blocks
         } else if (b.getType().getHardness() >= 3600000) {
             return false;
         } else {
-            return SensibleToolbox.getProtectionManager().hasPermission(player, b, ProtectableAction.BREAK_BLOCK);
+            // Block is replaceable, return permission to break
+            return SensibleToolbox.getProtectionManager().hasPermission(player, b, Interaction.BREAK_BLOCK);
         }
     }
 

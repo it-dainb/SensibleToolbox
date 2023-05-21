@@ -14,7 +14,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-import io.github.thebusybiscuit.cscorelib2.blocks.Vein;
+import io.github.bakedlibs.dough.blocks.Vein;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.AbstractProcessingMachine;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.MachineFrame;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.SimpleCircuit;
@@ -22,8 +22,10 @@ import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
 
 public class Pump extends AbstractProcessingMachine {
 
-    private static final int PUMP_FILL_TIME = 40; // 40 ticks to fill a bucket
-    private BlockFace pumpFace = BlockFace.DOWN; // will be configurable later
+    // 40 ticks to fill a bucket
+    private static final int PUMP_FILL_TIME = 40;
+    // will be configurable later
+    private BlockFace pumpFace = BlockFace.DOWN;
 
     public Pump() {
         super();
@@ -129,7 +131,7 @@ public class Pump extends AbstractProcessingMachine {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         SimpleCircuit sc = new SimpleCircuit();
         MachineFrame mf = new MachineFrame();
         registerCustomIngredients(sc, mf);

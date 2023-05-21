@@ -76,7 +76,8 @@ public class HeatEngine extends Generator {
 
     @Override
     public int[] getOutputSlots() {
-        return new int[0]; // no output slot
+        // no output slot
+        return new int[0];
     }
 
     @Override
@@ -141,7 +142,7 @@ public class HeatEngine extends Generator {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         SimpleCircuit sc = new SimpleCircuit();
         TenKEnergyCell cell = new TenKEnergyCell();
         registerCustomIngredients(sc, cell);

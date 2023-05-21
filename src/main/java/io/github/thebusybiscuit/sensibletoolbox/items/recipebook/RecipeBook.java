@@ -42,8 +42,8 @@ import org.bukkit.inventory.ShapelessRecipe;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import io.github.thebusybiscuit.cscorelib2.inventory.ItemUtils;
-import io.github.thebusybiscuit.cscorelib2.protection.ProtectableAction;
+import io.github.bakedlibs.dough.items.ItemUtils;
+import io.github.bakedlibs.dough.protection.Interaction;
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.STBInventoryHolder;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
@@ -64,6 +64,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.recipes.SimpleCustomRecipe;
 import io.github.thebusybiscuit.sensibletoolbox.core.STBItemRegistry;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
 import io.github.thebusybiscuit.sensibletoolbox.utils.VanillaInventoryUtils;
+
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.MiscUtil;
 import me.desht.dhutils.cost.ItemCost;
@@ -300,7 +301,7 @@ public class RecipeBook extends BaseSTBItem {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         ShapelessRecipe recipe = new ShapelessRecipe(getKey(), toItemStack());
         recipe.addIngredient(Material.BOOK);
         recipe.addIngredient(Material.CRAFTING_TABLE);
@@ -369,7 +370,7 @@ public class RecipeBook extends BaseSTBItem {
         for (BlockFace face : STBUtil.getDirectBlockFaces()) {
             Block b = fabricationBlock.getRelative(face);
 
-            if (VanillaInventoryUtils.isVanillaInventory(b) && SensibleToolbox.getProtectionManager().hasPermission(player, b, ProtectableAction.INTERACT_BLOCK)) {
+            if (VanillaInventoryUtils.isVanillaInventory(b) && SensibleToolbox.getProtectionManager().hasPermission(player, b, Interaction.INTERACT_BLOCK)) {
                 Optional<InventoryHolder> holder = VanillaInventoryUtils.getVanillaInventory(b).map(Inventory::getHolder);
 
                 if (holder.isPresent()) {
@@ -573,7 +574,7 @@ public class RecipeBook extends BaseSTBItem {
                 if (inv != null) {
                     vanillaInventories.add(inv);
                 }
-            } else if (h instanceof BlockState && SensibleToolbox.getProtectionManager().hasPermission(player, ((BlockState) h).getBlock(), ProtectableAction.INTERACT_BLOCK)) {
+            } else if (h instanceof BlockState && SensibleToolbox.getProtectionManager().hasPermission(player, ((BlockState) h).getBlock(), Interaction.INTERACT_BLOCK)) {
                 vanillaInventories.add(h.getInventory());
             }
         }

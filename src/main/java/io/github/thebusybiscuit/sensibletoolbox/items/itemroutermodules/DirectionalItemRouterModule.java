@@ -19,7 +19,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.Directional;
 
-import io.github.thebusybiscuit.cscorelib2.inventory.ItemUtils;
+import io.github.bakedlibs.dough.items.ItemUtils;
 import io.github.thebusybiscuit.sensibletoolbox.api.STBInventoryHolder;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.filters.Filter;
@@ -63,7 +63,8 @@ public abstract class DirectionalItemRouterModule extends ItemRouterModule imple
     public abstract boolean execute(Location loc);
 
     public DirectionalItemRouterModule() {
-        filter = new Filter(); // default filter: blacklist, no items
+        // default filter: blacklist, no items
+        filter = new Filter();
         setFacingDirection(BlockFace.SELF);
     }
 

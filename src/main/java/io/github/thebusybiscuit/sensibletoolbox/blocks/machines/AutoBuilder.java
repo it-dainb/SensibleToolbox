@@ -21,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-import io.github.thebusybiscuit.cscorelib2.protection.ProtectableAction;
+import io.github.bakedlibs.dough.protection.Interaction;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.SlotType;
@@ -35,6 +35,7 @@ import io.github.thebusybiscuit.sensibletoolbox.items.components.IntegratedCircu
 import io.github.thebusybiscuit.sensibletoolbox.items.components.ToughMachineFrame;
 import io.github.thebusybiscuit.sensibletoolbox.utils.ColoredMaterial;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+
 import me.desht.dhutils.MiscUtil;
 import me.desht.dhutils.cuboid.Cuboid;
 import me.desht.dhutils.cuboid.CuboidDirection;
@@ -127,7 +128,7 @@ public class AutoBuilder extends BaseSTBMachine {
     }
 
     @Override
-    public Recipe getRecipe() {
+    public Recipe getMainRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), toItemStack());
         ToughMachineFrame mf = new ToughMachineFrame();
         IntegratedCircuit ic = new IntegratedCircuit();
@@ -214,10 +215,10 @@ public class AutoBuilder extends BaseSTBMachine {
             buildZ = workArea.getLowerZ();
         }
 
-        if (getBuildMode() != AutoBuilderMode.CLEAR && initInventoryPointer()) {
-            setStatus(BuilderStatus.NO_INVENTORY);
-        } else {
+        if (getBuildMode() == AutoBuilderMode.CLEAR || initInventoryPointer()) {
             setStatus(BuilderStatus.RUNNING);
+        } else {
+            setStatus(BuilderStatus.NO_INVENTORY);
         }
     }
 
@@ -264,7 +265,7 @@ public class AutoBuilder extends BaseSTBMachine {
 
             switch (getBuildMode()) {
                 case CLEAR:
-                    if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, ProtectableAction.BREAK_BLOCK)) {
+                    if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, Interaction.BREAK_BLOCK)) {
                         setStatus(BuilderStatus.NO_PERMISSION);
                         return;
                     }
@@ -290,7 +291,7 @@ public class AutoBuilder extends BaseSTBMachine {
                 case FILL:
                 case WALLS:
                 case FRAME:
-                    if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, ProtectableAction.PLACE_BLOCK)) {
+                    if (!SensibleToolbox.getProtectionManager().hasPermission(owner, b, Interaction.PLACE_BLOCK)) {
                         setStatus(BuilderStatus.NO_PERMISSION);
                         return;
                     }
@@ -488,7 +489,8 @@ public class AutoBuilder extends BaseSTBMachine {
                 setStatus(setupWorkArea());
             }
 
-            return false; // we just put a copy of the land marker into the builder
+            // we just put a copy of the land marker into the builder
+            return false;
         } else {
             return super.onSlotClick(player, slot, click, inSlot, onCursor);
         }
@@ -509,7 +511,8 @@ public class AutoBuilder extends BaseSTBMachine {
             } else {
                 STBUtil.complain((Player) player, "Land Marker doesn't have a location set!");
             }
-            return 0; // we just put a copy of the land marker into the builder
+            // we just put a copy of the land marker into the builder
+            return 0;
         } else {
             return super.onShiftClickInsert(player, slot, toInsert);
         }
