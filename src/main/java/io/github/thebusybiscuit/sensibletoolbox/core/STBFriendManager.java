@@ -13,11 +13,11 @@ import java.util.UUID;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.FriendManager;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.text.LogUtils;
 

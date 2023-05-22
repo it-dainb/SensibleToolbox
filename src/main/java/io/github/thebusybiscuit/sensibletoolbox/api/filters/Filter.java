@@ -1,13 +1,14 @@
 package io.github.thebusybiscuit.sensibletoolbox.api.filters;
 
-import org.apache.commons.lang.Validate;
-import org.bukkit.inventory.ItemStack;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+
+import org.bukkit.inventory.ItemStack;
+
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * A class which can filter items based on several criteria: whitelist/blacklist,

@@ -6,7 +6,6 @@ import java.util.UUID;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -33,7 +32,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.gui.gadgets.ToggleButton;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.AbstractProcessingMachine;
 import io.github.thebusybiscuit.sensibletoolbox.utils.BukkitSerialization;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
-
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.WordUtils;
 import me.desht.dhutils.Debugger;
 
 public class BigStorageUnit extends AbstractProcessingMachine {

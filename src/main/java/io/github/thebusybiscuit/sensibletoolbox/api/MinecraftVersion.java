@@ -2,10 +2,10 @@ package io.github.thebusybiscuit.sensibletoolbox.api;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Server;
 
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import io.papermc.lib.PaperLib;
 
 /**
@@ -56,7 +56,7 @@ public enum MinecraftVersion {
      * (The "Caves and Cliffs: Part II" Update)
      *
      */
-    MINECRAFT_1_19(18, "1.19.x"),
+    MINECRAFT_1_19(19, "1.19.x"),
     
     /**
      * This constant represents an exceptional state in which we were unable

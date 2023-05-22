@@ -1,8 +1,7 @@
 package me.desht.dhutils.blocks;
 
-import org.apache.commons.lang.Validate;
-
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * Represents the relative position of an auxiliary block from a

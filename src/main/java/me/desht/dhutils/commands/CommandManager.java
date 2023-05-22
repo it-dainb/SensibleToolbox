@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -17,6 +16,7 @@ import org.bukkit.plugin.Plugin;
 
 import com.google.common.base.Joiner;
 
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.DHUtilsException;
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.MiscUtil;

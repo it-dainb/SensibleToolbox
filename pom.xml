@@ -195,7 +195,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
-            <version>${spigot.version}-R0.1-SNAPSHOT</version>
+            <version>1.19.4-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
 
@@ -209,21 +209,21 @@
         <dependency>
             <groupId>com.comphenix.protocol</groupId>
             <artifactId>ProtocolLib</artifactId>
-            <version>4.7.0</version>
+            <version>5.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.gmail.filoghost.holographicdisplays</groupId>
+            <groupId>me.filoghost.holographicdisplays</groupId>
             <artifactId>holographicdisplays-api</artifactId>
-            <version>2.4.9</version>
+            <version>3.0.0</version>
             <scope>provided</scope>
         </dependency>
 
         <dependency>
-            <groupId>com.github.TheBusyBiscuit</groupId>
+            <groupId>com.github.Slimefun</groupId>
             <artifactId>Slimefun4</artifactId>
-            <version>RC-30</version>
+            <version>RC-33</version>
             <scope>provided</scope>
         </dependency>
 

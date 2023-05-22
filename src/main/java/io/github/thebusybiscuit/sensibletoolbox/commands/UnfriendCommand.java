@@ -2,13 +2,13 @@ package io.github.thebusybiscuit.sensibletoolbox.commands;
 
 import java.util.UUID;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.FriendManager;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.MiscUtil;
 
 public class UnfriendCommand extends STBAbstractCommand {

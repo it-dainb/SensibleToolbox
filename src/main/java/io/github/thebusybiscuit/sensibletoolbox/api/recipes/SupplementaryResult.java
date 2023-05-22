@@ -2,8 +2,9 @@ package io.github.thebusybiscuit.sensibletoolbox.api.recipes;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.inventory.ItemStack;
+
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * Represents a supplementary result for a recipe; a possible "bonus" item,

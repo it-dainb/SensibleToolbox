@@ -5,7 +5,6 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import org.apache.commons.lang.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Location;
@@ -39,6 +38,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;
 import io.github.thebusybiscuit.sensibletoolbox.items.PaintBrush;
 import io.github.thebusybiscuit.sensibletoolbox.utils.ColoredMaterial;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.StringUtils;
 import me.desht.dhutils.Debugger;
 
 public class PaintCan extends BaseSTBBlock implements LevelReporter {

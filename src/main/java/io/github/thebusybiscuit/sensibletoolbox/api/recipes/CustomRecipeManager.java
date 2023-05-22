@@ -8,10 +8,10 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.inventory.ItemStack;
 
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBMachine;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * This class manages custom recipes known to STB. A custom recipe requires a

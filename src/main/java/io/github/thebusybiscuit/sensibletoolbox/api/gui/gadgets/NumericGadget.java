@@ -1,7 +1,5 @@
 package io.github.thebusybiscuit.sensibletoolbox.api.gui.gadgets;
 
-import org.apache.commons.lang.Validate;
-import org.apache.commons.lang.math.IntRange;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -12,6 +10,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.GUIUtil;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.math.IntRange;
 
 /**
  * A GUI gadget which allows an integer value to be displayed

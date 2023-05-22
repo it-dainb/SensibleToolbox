@@ -2,7 +2,6 @@ package io.github.thebusybiscuit.sensibletoolbox.blocks.machines;
 
 import javax.annotation.Nonnull;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
@@ -35,7 +34,7 @@ import io.github.thebusybiscuit.sensibletoolbox.items.components.IntegratedCircu
 import io.github.thebusybiscuit.sensibletoolbox.items.components.ToughMachineFrame;
 import io.github.thebusybiscuit.sensibletoolbox.utils.ColoredMaterial;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
-
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.MiscUtil;
 import me.desht.dhutils.cuboid.Cuboid;
 import me.desht.dhutils.cuboid.CuboidDirection;
