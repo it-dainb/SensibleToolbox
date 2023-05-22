@@ -27,9 +27,7 @@ public class HolographicMonitor extends BaseSTBBlock {
         super(conf);
     }
     
-    private static HolographicDisplaysAPIProvider impl = HolographicDisplaysAPIProvider.getImplementation();
-    private static HolographicDisplaysAPI hologramapi = impl.getHolographicDisplaysAPI(SensibleToolboxPlugin.getInstance());
-
+    
     @Override
     public Material getMaterial() {
         return Material.LIGHT_BLUE_STAINED_GLASS;
@@ -95,7 +93,9 @@ public class HolographicMonitor extends BaseSTBBlock {
 
         onServerTick();
         
-        
+        HolographicDisplaysAPIProvider impl = HolographicDisplaysAPIProvider.getImplementation();
+        HolographicDisplaysAPI hologramapi = impl.getHolographicDisplaysAPI(SensibleToolboxPlugin.getInstance());
+
         this.hologram = hologramapi.createHologram(getLocation().add(0.5, 1.4, 0.5));
     }
 

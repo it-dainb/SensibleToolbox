@@ -23,8 +23,6 @@ public final class HoloMessage {
 
     private HoloMessage() {}
     
-    private static HolographicDisplaysAPIProvider impl = HolographicDisplaysAPIProvider.getImplementation();
-    private static HolographicDisplaysAPI hologramapi = impl.getHolographicDisplaysAPI(SensibleToolboxPlugin.getInstance());
 
     @ParametersAreNonnullByDefault
     public static void popup(Player player, Location loc, String... message) {
@@ -38,6 +36,9 @@ public final class HoloMessage {
 
         Vector v = player.getLocation().getDirection();
         v.setY(0).multiply(-0.8).add(new Vector(0.5, 0.8, 0.5));
+
+        HolographicDisplaysAPIProvider impl = HolographicDisplaysAPIProvider.getImplementation();
+        HolographicDisplaysAPI hologramapi = impl.getHolographicDisplaysAPI(SensibleToolboxPlugin.getInstance());
 
         Hologram h = hologramapi.createHologram(loc.add(v));
         

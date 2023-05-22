@@ -11,8 +11,8 @@ class StackComparator implements Comparator<ItemStack> {
 
     @Override
     public int compare(ItemStack item1, ItemStack item2) {
-        String name1 = ChatColor.stripColor(ItemUtils.getItemName(item1) == null ? "" : ItemUtils.getItemName(item1));
-        String name2 = ChatColor.stripColor(ItemUtils.getItemName(item2) == null ? "" : ItemUtils.getItemName(item2));
+        String name1 = ChatColor.stripColor(ItemUtils.getItemName(item1) == null ? "?" : ItemUtils.getItemName(item1));
+        String name2 = ChatColor.stripColor(ItemUtils.getItemName(item2) == null ? "?" : ItemUtils.getItemName(item2));
         return name1.compareTo(name2);
     }
 
