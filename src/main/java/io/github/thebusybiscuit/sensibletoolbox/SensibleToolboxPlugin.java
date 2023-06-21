@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
+import io.github.thebusybiscuit.sensibletoolbox.items.Jawn;
 import io.github.thebusybiscuit.sensibletoolbox.listeners.*;
 import io.github.thebusybiscuit.sensibletoolbox.utils.MagnetoidTask;
 import org.bstats.bukkit.Metrics;
@@ -407,6 +408,7 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
         itemRegistry.registerItem(new RecipeBook(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new AdvancedRecipeBook(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new Multimeter(), this, configPrefix, permissionNode);
+        itemRegistry.registerItem(new Jawn(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new BigStorageUnit(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new HyperStorageUnit(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new Pump(), this, configPrefix, permissionNode);
