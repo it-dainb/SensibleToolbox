@@ -68,18 +68,14 @@ public class Jawn extends BaseSTBItem {
             Player player = event.getPlayer();
 
             if (Slimefun.getProtectionManager().hasPermission(event.getPlayer(), block, Interaction.BREAK_BLOCK)
-                && (block.getType() == Material.PLAYER_HEAD
-                || block.getType() == Material.PLAYER_WALL_HEAD)) {
+                && (block.getType() == Material.PLAYER_HEAD || block.getType() == Material.PLAYER_WALL_HEAD)) {
+                BlockBreakEvent e = new BlockBreakEvent(block, player);
 
-                BlockBreakEvent a = new BlockBreakEvent(block, player);
-                Bukkit.getPluginManager().callEvent(a);
+                event.setCancelled(true);
+                Bukkit.getPluginManager().callEvent(e);
+                block.setType(Material.AIR);
 
-                if (!event.isCancelled()) {
-                    block.setType(Material.AIR);
-                }
             }
-
-            event.setCancelled(true);
         }
     }
 }
