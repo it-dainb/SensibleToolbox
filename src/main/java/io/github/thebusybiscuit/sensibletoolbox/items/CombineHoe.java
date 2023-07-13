@@ -338,8 +338,6 @@ public abstract class CombineHoe extends BaseSTBItem {
                 continue;
             }
 
-            Block above = b1.getRelative(BlockFace.UP);
-
             if (Bukkit.getPluginManager().getPlugin("GriefDefender") != null) {
                 final Claim claim = GriefDefender.getCore().getClaimAt(b1.getLocation());
                 if (claim != null && !claim.isWilderness() && !claim.isUserTrusted(player.getUniqueId(), TrustTypes.BUILDER)) {
@@ -348,6 +346,7 @@ public abstract class CombineHoe extends BaseSTBItem {
                 }
             }
 
+            Block above = b1.getRelative(BlockFace.UP);
 
             if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS_BLOCK) && !above.getType().isSolid() && !above.isLiquid()) {
                 b1.setType(Material.FARMLAND);
