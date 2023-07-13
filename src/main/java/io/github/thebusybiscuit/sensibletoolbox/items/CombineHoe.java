@@ -5,8 +5,9 @@ import java.util.Map;
 import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
-import me.desht.dhutils.Debugger;
+import com.griefdefender.api.claim.TrustTypes;
 import me.desht.dhutils.MiscUtil;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Effect;
 import org.bukkit.Material;
@@ -329,35 +330,40 @@ public abstract class CombineHoe extends BaseSTBItem {
         int damage = ((Damageable) stack.getItemMeta()).getDamage();
 
 
+
         for (Block b1 : STBUtil.getSurroundingBlocks(b)) {
 
             if (!SensibleToolbox.getProtectionManager().hasPermission(player, b1, Interaction.BREAK_BLOCK)) {
+                MiscUtil.errorMessage(player, "You do not have permission to till soil here.");
                 continue;
             }
 
             Block above = b1.getRelative(BlockFace.UP);
-            final Claim claim = GriefDefender.getCore().getClaimAt(b1.getLocation());
 
-            if (claim != null && claim.isWilderness()) {
+            if (Bukkit.getPluginManager().getPlugin("GriefDefender") != null) {
+                final Claim claim = GriefDefender.getCore().getClaimAt(b1.getLocation());
+                if (claim != null && !claim.isWilderness() && !claim.isUserTrusted(player.getUniqueId(), TrustTypes.BUILDER)) {
+                    MiscUtil.errorMessage(player, "You do not have permission to till soil here.");
+                    continue;
+                }
+            }
 
-                if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS_BLOCK) && !above.getType().isSolid() && !above.isLiquid()) {
-                    b1.setType(Material.FARMLAND);
-                    count++;
 
-                    if (!above.isEmpty()) {
-                        above.breakNaturally();
-                    }
+            if ((b1.getType() == Material.DIRT || b1.getType() == Material.GRASS_BLOCK) && !above.getType().isSolid() && !above.isLiquid()) {
+                b1.setType(Material.FARMLAND);
+                count++;
 
-                    if (damage + count >= stack.getType().getMaxDurability()) {
-                        break;
-                    }
+                if (!above.isEmpty()) {
+                    above.breakNaturally();
                 }
 
-                if (player.isSneaking()) {
+                if (damage + count >= stack.getType().getMaxDurability()) {
                     break;
                 }
-            } else {
-                MiscUtil.errorMessage(player, "You do not have permission to till soil here.");
+            }
+
+            if (player.isSneaking()) {
+                break;
             }
         }
 
