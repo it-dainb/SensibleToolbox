@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.block.Action;
@@ -66,14 +67,17 @@ public class Jawn extends BaseSTBItem {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK) {
             Block block = event.getClickedBlock();
             Player player = event.getPlayer();
+            Block blockbelow = block.getLocation().getBlock().getRelative(BlockFace.DOWN);
 
             if (Slimefun.getProtectionManager().hasPermission(event.getPlayer(), block, Interaction.BREAK_BLOCK)
-                && (block.getType() == Material.PLAYER_HEAD || block.getType() == Material.PLAYER_WALL_HEAD)) {
-                BlockBreakEvent e = new BlockBreakEvent(block, player);
+                && (block.getType() == Material.PLAYER_HEAD || block.getType() == Material.PLAYER_WALL_HEAD)
+                // PREVENT THE DAMN EG DUPE smh
+                && blockbelow.getType() != Material.OAK_LEAVES) {
+                    BlockBreakEvent e = new BlockBreakEvent(block, player);
 
-                event.setCancelled(true);
-                Bukkit.getPluginManager().callEvent(e);
-                block.setType(Material.AIR);
+                    event.setCancelled(true);
+                    Bukkit.getPluginManager().callEvent(e);
+                    block.setType(Material.AIR);
 
             }
         }
