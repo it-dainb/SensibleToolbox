@@ -44,13 +44,15 @@ import io.github.thebusybiscuit.sensibletoolbox.api.gui.gadgets.RedstoneBehaviou
 import io.github.thebusybiscuit.sensibletoolbox.api.recipes.CustomRecipeManager;
 import io.github.thebusybiscuit.sensibletoolbox.core.gui.STBInventoryGUI;
 import io.github.thebusybiscuit.sensibletoolbox.items.energycells.EnergyCell;
-import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.EjectorUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.AbstractMachineUpgrade;
+import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.EjectorUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.RegulatorUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.SpeedUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.ThoroughnessUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
 import io.github.thebusybiscuit.sensibletoolbox.utils.UnicodeSymbol;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.StringUtils;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.text.LogUtils;
 

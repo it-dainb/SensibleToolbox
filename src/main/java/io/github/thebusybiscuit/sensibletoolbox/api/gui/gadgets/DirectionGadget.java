@@ -13,6 +13,7 @@ import org.bukkit.material.Directional;
 
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.GUIUtil;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * A GUI gadget which allows the facing direction of a directional item to be

@@ -39,6 +39,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUIListener;
 import io.github.thebusybiscuit.sensibletoolbox.core.STBItemRegistry;
 import io.github.thebusybiscuit.sensibletoolbox.utils.ItemGlow;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * Represents an STB item. This is the superclass for all STB items.

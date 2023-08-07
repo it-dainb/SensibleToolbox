@@ -8,25 +8,26 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
-
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.energy.EnergyNet;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+import me.filoghost.holographicdisplays.api.HolographicDisplaysAPI;
+import me.filoghost.holographicdisplays.api.hologram.Hologram;
+import me.filoghost.holographicdisplays.api.internal.HolographicDisplaysAPIProvider;
 
 public class HolographicMonitor extends BaseSTBBlock {
 
     private Hologram hologram;
-
+    
     public HolographicMonitor() {}
 
     public HolographicMonitor(ConfigurationSection conf) {
         super(conf);
     }
-
+    
+    
     @Override
     public Material getMaterial() {
         return Material.LIGHT_BLUE_STAINED_GLASS;
@@ -65,7 +66,8 @@ public class HolographicMonitor extends BaseSTBBlock {
         if (hologram == null) {
             return;
         }
-        this.hologram.clearLines();
+        
+        this.hologram.getLines().clear();
 
         for (BlockFace f : STBUtil.getMainHorizontalFaces()) {
             EnergyNet net = SensibleToolbox.getEnergyNet(getRelativeLocation(f).getBlock());
@@ -79,7 +81,7 @@ public class HolographicMonitor extends BaseSTBBlock {
                     prefix = ChatColor.DARK_RED + "" + ChatColor.BOLD + "-";
                 }
 
-                this.hologram.appendTextLine(prefix + " " + ChatColor.GRAY + STBUtil.getCompactDouble(Double.valueOf(String.valueOf(stat).replace("-", ""))) + " SCU/t");
+                this.hologram.getLines().appendText(prefix + " " + ChatColor.GRAY + STBUtil.getCompactDouble(Double.valueOf(String.valueOf(stat).replace("-", ""))) + " SCU/t");
                 break;
             }
         }
@@ -90,7 +92,11 @@ public class HolographicMonitor extends BaseSTBBlock {
         super.onBlockRegistered(location, isPlacing);
 
         onServerTick();
-        this.hologram = HologramsAPI.createHologram(SensibleToolboxPlugin.getInstance(), getLocation().add(0.5, 1.4, 0.5));
+        
+        HolographicDisplaysAPIProvider impl = HolographicDisplaysAPIProvider.getImplementation();
+        HolographicDisplaysAPI hologramapi = impl.getHolographicDisplaysAPI(SensibleToolboxPlugin.getInstance());
+
+        this.hologram = hologramapi.createHologram(getLocation().add(0.5, 1.4, 0.5));
     }
 
     @Override

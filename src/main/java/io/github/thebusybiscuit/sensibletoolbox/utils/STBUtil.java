@@ -15,6 +15,12 @@ import javax.annotation.Nullable;
 
 import com.google.common.base.Preconditions;
 import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.enchantments.Enchantment;
@@ -35,7 +41,8 @@ import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.MinecraftVersion;
 import io.github.thebusybiscuit.sensibletoolbox.api.energy.Chargeable;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBItem;
-
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.StringUtils;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.DHUtilsException;
 import me.desht.dhutils.MiscUtil;
 import me.desht.dhutils.blocks.BlockUtil;

@@ -9,6 +9,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.energy.EnergyFlow;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBItem;
 import io.github.thebusybiscuit.sensibletoolbox.blocks.machines.BatteryBox;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * A GUI gadget which allows energy flow settings for a block to be displayed

@@ -151,8 +151,8 @@ import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.ThoroughnessUpgra
 import io.github.thebusybiscuit.sensibletoolbox.slimefun.SlimefunBridge;
 import io.github.thebusybiscuit.sensibletoolbox.utils.ItemGlow;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import io.papermc.lib.PaperLib;
-
 import me.desht.dhutils.DHUtilsException;
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.MiscUtil;

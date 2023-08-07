@@ -4,6 +4,7 @@ import com.google.common.base.Preconditions;
 
 import io.github.thebusybiscuit.sensibletoolbox.api.LightMeterHolder;
 import io.github.thebusybiscuit.sensibletoolbox.api.gui.InventoryGUI;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * Measures the light intensity for an STB block. The GUI that this gadget

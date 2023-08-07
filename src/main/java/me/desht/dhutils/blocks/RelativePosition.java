@@ -3,6 +3,7 @@ package me.desht.dhutils.blocks;
 import com.google.common.base.Preconditions;
 
 import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 
 /**
  * Represents the relative position of an auxiliary block from a

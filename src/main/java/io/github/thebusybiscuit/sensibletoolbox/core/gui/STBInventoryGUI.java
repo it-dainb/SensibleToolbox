@@ -311,6 +311,8 @@ public class STBInventoryGUI implements InventoryGUI {
         switch (event.getAction()) {
             case MOVE_TO_OTHER_INVENTORY:
                 return listener.onShiftClickExtract(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
+			case COLLECT_TO_CURSOR:
+				return listener.onShiftClickExtract(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
             case PLACE_ONE:
             case PLACE_ALL:
             case PLACE_SOME:

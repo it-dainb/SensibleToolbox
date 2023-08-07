@@ -10,6 +10,8 @@ import com.google.common.base.Preconditions;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
+
 /**
  * This class holds a few ordered {@link List Lists} that hold colored variants
  * of {@link Material}.

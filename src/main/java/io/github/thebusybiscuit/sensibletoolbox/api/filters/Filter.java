@@ -9,6 +9,10 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
+import org.bukkit.inventory.ItemStack;
+
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
+
 /**
  * A class which can filter items based on several criteria: whitelist/blacklist,
  * filter by material, by block data or by item metadata.

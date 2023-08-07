@@ -1,6 +1,5 @@
 package io.github.thebusybiscuit.sensibletoolbox.blocks;
 
-
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;

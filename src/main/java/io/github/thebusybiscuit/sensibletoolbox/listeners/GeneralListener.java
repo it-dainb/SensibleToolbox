@@ -53,6 +53,7 @@ import io.github.thebusybiscuit.sensibletoolbox.api.items.ItemAction;
 import io.github.thebusybiscuit.sensibletoolbox.core.gui.STBInventoryGUI;
 import io.github.thebusybiscuit.sensibletoolbox.core.storage.LocationManager;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.Debugger;
 import me.desht.dhutils.text.LogUtils;
 
@@ -380,7 +381,7 @@ public class GeneralListener extends STBBaseListener {
     public void onArmourEquipCheck(InventoryClickEvent event) {
         if (event.getInventory().getType() == InventoryType.CRAFTING) {
             if (event.getSlotType() == InventoryType.SlotType.QUICKBAR || event.getSlotType() == InventoryType.SlotType.CONTAINER) {
-                if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY && STBUtil.isWearable(event.getCurrentItem().getType())) {
+                if (event.getAction() == InventoryAction.COLLECT_TO_CURSOR || event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY && STBUtil.isWearable(event.getCurrentItem().getType())) {
                     BaseSTBItem item = SensibleToolbox.getItemRegistry().fromItemStack(event.getCurrentItem());
 
                     if (item != null && !item.isWearable()) {

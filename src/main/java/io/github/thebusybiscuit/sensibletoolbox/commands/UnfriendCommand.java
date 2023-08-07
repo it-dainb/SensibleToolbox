@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 
 import io.github.thebusybiscuit.sensibletoolbox.SensibleToolboxPlugin;
 import io.github.thebusybiscuit.sensibletoolbox.api.FriendManager;
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
 import me.desht.dhutils.MiscUtil;
 
 public class UnfriendCommand extends STBAbstractCommand {

@@ -14,6 +14,8 @@ import org.bukkit.util.io.BukkitObjectInputStream;
 import org.bukkit.util.io.BukkitObjectOutputStream;
 import org.yaml.snakeyaml.external.biz.base64Coder.Base64Coder;
 
+import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.Validate;
+
 /**
  * Serialize a Bukkit {@link Inventory} to or from a {@link String}.
  * <p/>
