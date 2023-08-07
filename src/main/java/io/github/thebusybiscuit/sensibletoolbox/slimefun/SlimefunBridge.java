@@ -107,6 +107,14 @@ public final class SlimefunBridge implements SlimefunAddon {
                 List<ItemStack> fuels = ((Generator) item).getFuelInformation();
                 sfItem = new STBSlimefunGenerator(category, itemStack, recipeType, recipe.toArray(new ItemStack[0]), fuels);
             } else {
+
+                if (item.getMaterial() == Material.COMPARATOR ||
+                        item.getMaterial() == Material.REPEATER ||
+                        item.getMaterial() == Material.BREWING_STAND ||
+                        item.getMaterial() == Material.GREEN_CARPET) {
+                    category = items;
+                }
+
                 sfItem = new STBSlimefunItem(category, itemStack, recipeType, recipe.toArray(new ItemStack[0]));
             }
 

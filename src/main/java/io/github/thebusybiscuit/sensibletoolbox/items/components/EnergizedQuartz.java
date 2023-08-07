@@ -40,6 +40,6 @@ public class EnergizedQuartz extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 }

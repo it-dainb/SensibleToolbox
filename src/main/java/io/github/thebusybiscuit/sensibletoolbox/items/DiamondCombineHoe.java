@@ -25,6 +25,10 @@ public class DiamondCombineHoe extends CombineHoe {
         return "Diamond Combine Hoe";
     }
 
+    public boolean hasGlow() {
+        return true;
+    }
+
     @Override
     public Recipe getMainRecipe() {
         ShapedRecipe recipe = new ShapedRecipe(getKey(), toItemStack());

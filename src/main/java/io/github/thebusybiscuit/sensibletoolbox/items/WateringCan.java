@@ -61,6 +61,10 @@ public class WateringCan extends BaseSTBItem {
         this.waterLevel = level;
     }
 
+    public boolean hasGlow() {
+        return true;
+    }
+
     @Override
     public YamlConfiguration freeze() {
         YamlConfiguration res = super.freeze();

@@ -47,6 +47,6 @@ public class ThoroughnessUpgrade extends AbstractMachineUpgrade {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 }

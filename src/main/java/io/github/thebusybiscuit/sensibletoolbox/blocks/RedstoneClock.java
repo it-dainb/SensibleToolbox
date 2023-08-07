@@ -179,9 +179,8 @@ public class RedstoneClock extends BaseSTBBlock {
     public void onInteractBlock(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && !event.getPlayer().isSneaking()) {
             getGUI().show(event.getPlayer());
+            event.setCancelled(true);
         }
-
-        super.onInteractBlock(event);
     }
 
     @Override

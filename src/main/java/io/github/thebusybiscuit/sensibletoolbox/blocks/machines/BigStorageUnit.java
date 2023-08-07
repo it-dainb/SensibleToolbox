@@ -362,6 +362,18 @@ public class BigStorageUnit extends AbstractProcessingMachine {
     }
 
     @Override
+    public void onBlockRegistered(Location location, boolean isPlacing) {
+        getProgressMeter().setMaxProgress(maxCapacity);
+        setProcessing(storedDisplay);
+        setProgress(maxCapacity - (double) storageAmount);
+        ItemStack output = getOutputItem();
+        outputAmount = output == null ? 0 : output.getAmount();
+        oldTotalAmount += outputAmount;
+        updateSignQuantityLine();
+        super.onBlockRegistered(location, isPlacing);
+    }
+
+    @Override
     public void onBlockUnregistered(Location location) {
         if (getProcessing() != null && dropsItemsOnBreak()) {
             // dump contents on floor (could make a big mess)
@@ -380,17 +392,6 @@ public class BigStorageUnit extends AbstractProcessingMachine {
             setStorageAmount(0);
         }
         super.onBlockUnregistered(location);
-    }
-
-    @Override
-    public void onBlockRegistered(Location location, boolean isPlacing) {
-        getProgressMeter().setMaxProgress(maxCapacity);
-        setProcessing(storedDisplay);
-        setProgress(maxCapacity - (double) storageAmount);
-        ItemStack output = getOutputItem();
-        outputAmount = output == null ? 0 : output.getAmount();
-        oldTotalAmount += outputAmount;
-        super.onBlockRegistered(location, isPlacing);
     }
 
     @Override
@@ -450,6 +451,7 @@ public class BigStorageUnit extends AbstractProcessingMachine {
             case IRON_AXE:
             case GOLDEN_AXE:
             case DIAMOND_AXE:
+            case NETHERITE_AXE:
                 return false;
             default:
                 return true;

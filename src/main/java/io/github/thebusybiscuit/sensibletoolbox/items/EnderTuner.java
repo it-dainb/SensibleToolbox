@@ -1,7 +1,6 @@
 package io.github.thebusybiscuit.sensibletoolbox.items;
 
 import javax.annotation.Nonnull;
-
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -76,7 +75,7 @@ public class EnderTuner extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 
     @Override

@@ -657,10 +657,10 @@ public abstract class BaseSTBBlock extends BaseSTBItem {
             }
         });
 
-        if (needToScanSigns) {
+/*        if (needToScanSigns) {
             scanForAttachedLabelSigns();
             needToScanSigns = false;
-        }
+        }*/
 
         onBlockRegistered(location, isPlacing);
     }

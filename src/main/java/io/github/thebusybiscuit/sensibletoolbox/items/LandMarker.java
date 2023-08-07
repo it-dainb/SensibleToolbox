@@ -2,6 +2,8 @@ package io.github.thebusybiscuit.sensibletoolbox.items;
 
 import java.util.UUID;
 
+import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
+import io.github.thebusybiscuit.sensibletoolbox.api.items.BaseSTBBlock;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -104,11 +106,15 @@ public class LandMarker extends BaseSTBItem {
             updateHeldItemStack(event.getPlayer(), event.getHand());
             player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 0.6F);
         } else if ((event.getAction() == Action.RIGHT_CLICK_BLOCK || event.getAction() == Action.LEFT_CLICK_BLOCK) && !event.getClickedBlock().getLocation().equals(loc)) {
-            setMarkedLocation(event.getClickedBlock().getLocation());
-            updateHeldItemStack(event.getPlayer(), event.getHand());
-            player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.5F);
+            BaseSTBBlock stb = SensibleToolbox.getBlockAt(event.getClickedBlock().getLocation());
+            if (stb == null) {
+                setMarkedLocation(event.getClickedBlock().getLocation());
+                updateHeldItemStack(event.getPlayer(), event.getHand());
+                player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F, 1.5F);
+            } else {
+                stb.onInteractBlock(event);
+            }
         }
-
         event.setCancelled(true);
     }
 }

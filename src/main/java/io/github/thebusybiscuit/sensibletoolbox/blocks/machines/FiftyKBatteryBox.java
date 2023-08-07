@@ -35,7 +35,7 @@ public class FiftyKBatteryBox extends BatteryBox {
         recipe.setIngredient('G', Material.GLASS);
         recipe.setIngredient('C', cell.getMaterial());
         recipe.setIngredient('R', Material.REDSTONE);
-        recipe.setIngredient('I', Material.GOLD_INGOT);
+        recipe.setIngredient('I', Material.DIAMOND);
         return recipe;
     }
 

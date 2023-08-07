@@ -197,7 +197,7 @@ public abstract class BaseSTBMachine extends BaseSTBBlock implements ChargeableB
     }
 
     /**
-     * Define any custom recipes for this machine. By default this method does
+     * Define any custom recipes for this machine. By default, this method does
      * nothing; override if necessary to add custom recipes.
      *
      * @param crm
@@ -333,6 +333,7 @@ public abstract class BaseSTBMachine extends BaseSTBBlock implements ChargeableB
         return chargeLabel;
     }
 
+
     @Override
     protected String[] getSignLabel(BlockFace face) {
         String[] label = super.getSignLabel(face);
@@ -345,19 +346,19 @@ public abstract class BaseSTBMachine extends BaseSTBBlock implements ChargeableB
     }
 
     private void buildChargeLabel() {
-        StringBuilder s = new StringBuilder(UnicodeSymbol.ELECTRICITY.toUnicode()).append(ChatColor.DARK_RED.toString()).append(UnicodeSymbol.SQUARE.toUnicode());
+        StringBuilder s = new StringBuilder(UnicodeSymbol.ELECTRICITY.toUnicode()).append(ChatColor.DARK_RED).append(UnicodeSymbol.SQUARE.toUnicode());
 
         for (int i = 0; i < charge8; i++) {
             s.append(UnicodeSymbol.SQUARE.toUnicode());
 
             if (i == 0) {
-                s.append(ChatColor.GOLD.toString());
+                s.append(ChatColor.GOLD);
             } else if (i == 2) {
-                s.append(ChatColor.GREEN.toString());
+                s.append(ChatColor.GREEN);
             }
         }
-
-        s.append(Strings.repeat(" ", 15 - s.length()));
+        
+        s.append(Strings.repeat(" ", 16 - s.length()));
         chargeLabel = s.toString();
     }
 
@@ -517,7 +518,7 @@ public abstract class BaseSTBMachine extends BaseSTBBlock implements ChargeableB
     }
 
     /**
-     * Define the inventory slot for an charge direction gadget; where the energy
+     * Define the inventory slot for a charge direction gadget; where the energy
      * flow between machine and energy cell can be changed. The default is
      * -1; no gadget. If a gadget is added, it is recommended to place it
      * adjacent to the energy cell slot defined with

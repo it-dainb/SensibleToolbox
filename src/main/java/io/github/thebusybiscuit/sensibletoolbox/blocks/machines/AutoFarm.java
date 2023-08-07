@@ -8,11 +8,13 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javax.annotation.Nonnull;
 
+import me.desht.dhutils.Debugger;
 import org.bukkit.Effect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
@@ -80,12 +82,12 @@ public class AutoFarm extends AutoFarmingMachine {
 
     @Override
     public void onBlockRegistered(Location location, boolean isPlacing) {
-        int range = RADIUS / 2;
+        int i = RADIUS;
         Block block = location.getBlock();
 
-        for (int x = -range; x <= range; x++) {
-            for (int z = -range; z <= range; z++) {
-                blocks.add(block.getRelative(x, 0, z));
+        for (int x = -i; x <= i; x++) {
+            for (int z = -i; z <= i; z++) {
+                blocks.add(block.getRelative(x, 2, z));
             }
         }
 
@@ -101,9 +103,17 @@ public class AutoFarm extends AutoFarmingMachine {
                         Ageable ageable = (Ageable) crop.getBlockData();
 
                         if (ageable.getAge() >= ageable.getMaximumAge()) {
-                            setCharge(getCharge() - getScuPerCycle());
+                            if (getCharge() >= getScuPerCycle()) {
+                                setCharge(getCharge() - getScuPerCycle());
+                            } else {
+                                break;
+                            }
 
-                            ageable.setAge(0);
+                            BlockData data = crop.getBlockData();
+                            Ageable cropData = (Ageable) data;
+                            cropData.setAge(0);
+
+                            crop.setBlockData(data);
                             crop.getWorld().playEffect(crop.getLocation(), Effect.STEP_SOUND, crop.getType());
                             setJammed(!output(crops.get(crop.getType())));
                             break;
@@ -114,14 +124,12 @@ public class AutoFarm extends AutoFarmingMachine {
         } else if (buffer != null) {
             setJammed(!output(buffer));
         }
-
         super.onServerTick();
     }
 
     protected boolean output(@Nonnull Material m) {
         for (int slot : getOutputSlots()) {
             ItemStack stack = getInventoryItem(slot);
-
             if (stack == null || (stack.getType() == m && stack.getAmount() < stack.getMaxStackSize())) {
                 if (stack == null) {
                     stack = new ItemStack(m);

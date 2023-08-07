@@ -3,16 +3,24 @@ package io.github.thebusybiscuit.sensibletoolbox.blocks.machines;
 import java.util.HashSet;
 import java.util.Set;
 
+import io.github.bakedlibs.dough.items.CustomItemStack;
+import io.github.thebusybiscuit.sensibletoolbox.api.items.AutoFarmingMachine;
+import me.desht.dhutils.Debugger;
 import org.bukkit.Effect;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.Recipe;
 import org.bukkit.inventory.ShapedRecipe;
 
 import io.github.thebusybiscuit.sensibletoolbox.items.GoldCombineHoe;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.MachineFrame;
+
+import javax.annotation.Nonnull;
 
 public class InfernalFarm extends AutoFarm {
 
@@ -62,6 +70,20 @@ public class InfernalFarm extends AutoFarm {
     }
 
     @Override
+    public void onBlockRegistered(Location location, boolean isPlacing) {
+        int i = RADIUS;
+        Block block = location.getBlock();
+
+        for (int x = -i; x <= i; x++) {
+            for (int z = -i; z <= i; z++) {
+                blocks.add(block.getRelative(x, 2, z));
+            }
+        }
+        //Without this, the machine stops updating the charge after a restart.
+        super.onBlockRegistered(location, isPlacing);
+    }
+
+    @Override
     public void onServerTick() {
         if (!isJammed()) {
             if (getCharge() >= getScuPerCycle()) {
@@ -72,7 +94,14 @@ public class InfernalFarm extends AutoFarm {
                         if (ageable.getAge() >= ageable.getMaximumAge()) {
                             setCharge(getCharge() - getScuPerCycle());
 
-                            ageable.setAge(0);
+                            BlockData data = crop.getBlockData();
+                            if (ageable instanceof Ageable) {
+                                Ageable m_ageable = (Ageable) data;
+                                m_ageable.setAge(0);
+                                data = m_ageable;
+                            }
+
+                            crop.setBlockData(data);
                             crop.getWorld().playEffect(crop.getLocation(), Effect.STEP_SOUND, crop.getType());
                             setJammed(!output(Material.NETHER_WART));
                             break;
@@ -83,7 +112,6 @@ public class InfernalFarm extends AutoFarm {
         } else if (buffer != null) {
             setJammed(!output(buffer));
         }
-
         super.onServerTick();
     }
 

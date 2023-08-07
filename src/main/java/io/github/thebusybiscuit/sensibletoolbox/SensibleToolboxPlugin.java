@@ -10,6 +10,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 
 import com.google.common.base.Preconditions;
+import io.github.thebusybiscuit.sensibletoolbox.items.Jawn;
+import io.github.thebusybiscuit.sensibletoolbox.listeners.*;
+import io.github.thebusybiscuit.sensibletoolbox.utils.MagnetoidTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Server;
 import org.bukkit.command.Command;
@@ -103,6 +106,7 @@ import io.github.thebusybiscuit.sensibletoolbox.items.PaintRoller;
 import io.github.thebusybiscuit.sensibletoolbox.items.TapeMeasure;
 import io.github.thebusybiscuit.sensibletoolbox.items.WateringCan;
 import io.github.thebusybiscuit.sensibletoolbox.items.WoodCombineHoe;
+import io.github.thebusybiscuit.sensibletoolbox.items.Magnetoid;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.CircuitBoard;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.EnergizedGoldDust;
 import io.github.thebusybiscuit.sensibletoolbox.items.components.EnergizedGoldIngot;
@@ -144,14 +148,6 @@ import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.EjectorUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.RegulatorUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.SpeedUpgrade;
 import io.github.thebusybiscuit.sensibletoolbox.items.upgrades.ThoroughnessUpgrade;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.AnvilListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.ElevatorListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.FurnaceListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.GeneralListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.MobListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.SoundMufflerListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.TrashCanListener;
-import io.github.thebusybiscuit.sensibletoolbox.listeners.WorldListener;
 import io.github.thebusybiscuit.sensibletoolbox.slimefun.SlimefunBridge;
 import io.github.thebusybiscuit.sensibletoolbox.utils.ItemGlow;
 import io.github.thebusybiscuit.sensibletoolbox.utils.STBUtil;
@@ -186,6 +182,7 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
     private ConfigCache configCache;
     private IDTracker<SCURelayConnection> scuRelayIDTracker;
     private ProtectionManager protectionManager;
+    private MagnetoidTask magnetoidCheckTask;
 
     @Override
     public void onEnable() {
@@ -268,6 +265,9 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
             PluginUpdater<PrefixedVersion> updater = new GitHubBuildsUpdater(this, getFile(), "Slimefun/SensibleToolbox/master");
             updater.start();
         }
+
+        magnetoidCheckTask = new MagnetoidTask(this);
+        magnetoidCheckTask.runTaskTimer(this, 0, 5L);
 
         enabled = true;
     }
@@ -408,6 +408,7 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
         itemRegistry.registerItem(new RecipeBook(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new AdvancedRecipeBook(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new Multimeter(), this, configPrefix, permissionNode);
+        itemRegistry.registerItem(new Jawn(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new BigStorageUnit(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new HyperStorageUnit(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new Pump(), this, configPrefix, permissionNode);
@@ -441,6 +442,7 @@ public class SensibleToolboxPlugin extends JavaPlugin implements ConfigurationLi
         itemRegistry.registerItem(new AutoForester(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new InfernalFarm(), this, configPrefix, permissionNode);
         itemRegistry.registerItem(new AutoFarm2(), this, configPrefix, permissionNode);
+        itemRegistry.registerItem(new Magnetoid(), this, configPrefix, permissionNode);
 
         if (isProtocolLibEnabled()) {
             itemRegistry.registerItem(new SoundMuffler(), this, configPrefix, permissionNode);

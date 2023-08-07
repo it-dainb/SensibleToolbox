@@ -43,6 +43,6 @@ public class SimpleCircuit extends BaseSTBItem {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 }

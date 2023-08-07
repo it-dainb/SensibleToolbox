@@ -256,26 +256,30 @@ public class STBInventoryGUI implements InventoryGUI {
                 }
             } else if (event.getRawSlot() > 0) {
                 // clicking inside the player's inventory
-                if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
-                    int nInserted = listener.onShiftClickInsert(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
-                    if (nInserted > 0) {
-                        ItemStack stack = event.getCurrentItem();
-                        stack.setAmount(stack.getAmount() - nInserted);
-                        event.setCurrentItem(stack.getAmount() > 0 ? stack : null);
+                if (event.getAction() != InventoryAction.COLLECT_TO_CURSOR) {
+                    if (event.getAction() == InventoryAction.MOVE_TO_OTHER_INVENTORY) {
+                        int nInserted = listener.onShiftClickInsert(event.getWhoClicked(), event.getRawSlot(), event.getCurrentItem());
+                        if (nInserted > 0) {
+                            ItemStack stack = event.getCurrentItem();
+                            stack.setAmount(stack.getAmount() - nInserted);
+                            event.setCurrentItem(stack.getAmount() > 0 ? stack : null);
+
+                        }
+                    } else {
+                        shouldCancel = !listener.onPlayerInventoryClick(event.getWhoClicked(), event.getSlot(), event.getClick(), event.getCurrentItem(), event.getCursor());
                     }
                 } else {
-                    shouldCancel = !listener.onPlayerInventoryClick(event.getWhoClicked(), event.getSlot(), event.getClick(), event.getCurrentItem(), event.getCursor());
+                    // clicking outside the inventory entirely
+                    shouldCancel = !listener.onClickOutside(event.getWhoClicked());
                 }
-            } else {
-                // clicking outside the inventory entirely
-                shouldCancel = !listener.onClickOutside(event.getWhoClicked());
             }
-        } finally {
-            if (shouldCancel) {
-                event.setCancelled(true);
+            } finally{
+                if (shouldCancel) {
+                    event.setCancelled(true);
+                }
             }
         }
-    }
+
 
     public void receiveEvent(InventoryDragEvent event) {
         boolean inGUI = false;

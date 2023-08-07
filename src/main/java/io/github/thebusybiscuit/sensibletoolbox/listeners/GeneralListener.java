@@ -101,7 +101,7 @@ public class GeneralListener extends STBBaseListener {
         }
     }
 
-    @EventHandler(ignoreCancelled = true)
+/*    @EventHandler(ignoreCancelled = true)
     public void onItemChanged(PlayerItemHeldEvent event) {
         if (event.getPlayer().isSneaking()) {
             ItemStack stack = event.getPlayer().getInventory().getItemInMainHand();
@@ -112,7 +112,7 @@ public class GeneralListener extends STBBaseListener {
                 event.setCancelled(true);
             }
         }
-    }
+    }*/
 
     @EventHandler(ignoreCancelled = true)
     public void onBlockDamage(BlockDamageEvent event) {

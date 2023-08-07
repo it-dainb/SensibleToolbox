@@ -22,7 +22,7 @@ public class SpeedUpgrade extends AbstractMachineUpgrade {
 
     @Override
     public boolean hasGlow() {
-        return true;
+        return false;
     }
 
     @Override
