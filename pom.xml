@@ -7,8 +7,8 @@
     <groupId>com.github.slimefun</groupId>
     <artifactId>SensibleToolbox</artifactId>
 
-    <version>MCT</version>
-    <inceptionYear>2014</inceptionYear>
+    <version>DaiNB</version>
+    <inceptionYear>2023</inceptionYear>
     <packaging>jar</packaging>
 
     <description>SensibleToolbox is a Spigot/Paper plugin which adds tons of items and machines inspired by popular mods.</description>
