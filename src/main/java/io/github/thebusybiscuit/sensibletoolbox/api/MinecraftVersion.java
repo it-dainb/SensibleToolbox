@@ -62,15 +62,7 @@ public enum MinecraftVersion {
      * (The "Trails and Tales" Update)
      *
      */
-    MINECRAFT_1_20(20, "1.20.x"),
-
-    /**
-     * This constant represents Minecraft (Java Edition) Version 1.19
-     * (The "Caves and Cliffs: Part II" Update)
-     *
-     */
-    MINECRAFT_1_19(19, "1.19.x"),
-    
+    MINECRAFT_1_20(20, "1.20.x"),    
     /**
      * This constant represents an exceptional state in which we were unable
      * to identify the Minecraft Version we are using

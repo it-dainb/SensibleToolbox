@@ -316,7 +316,7 @@ public abstract class CombineHoe extends BaseSTBItem {
 
         for (Block block : cuboid) {
             if (!block.equals(b) && (STBUtil.isPlant(block.getType()) || Tag.LEAVES.isTagged(block.getType()))) {
-                if (SensibleToolbox.getProtectionManager().hasPermission(player, b, ProtectableAction.BREAK_BLOCK)) {
+                if (SensibleToolbox.getProtectionManager().hasPermission(player, b, Interaction.BREAK_BLOCK)) {
                     block.getWorld().playEffect(block.getLocation(), Effect.STEP_SOUND, block.getType());
                     block.breakNaturally();
                 }

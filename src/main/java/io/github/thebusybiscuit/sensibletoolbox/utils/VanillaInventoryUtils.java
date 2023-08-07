@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 import io.github.bakedlibs.dough.protection.Interaction;
 import io.github.thebusybiscuit.sensibletoolbox.api.SensibleToolbox;
 import io.github.thebusybiscuit.sensibletoolbox.api.filters.Filter;
-import io.github.thebusybiscuit.slimefun4.libraries.commons.lang.math.IntRange;
+import io.github.thebusybiscuit.sensibletoolbox.utils.IntRange;
 import me.desht.dhutils.Debugger;
 
 /**
