@@ -39,7 +39,7 @@ public class Magnetoid extends EnergyCell {
     }
 
     public Material getMaterial() {
-        return Material.ECHO_SHARD;
+        return Material.GLOW_INK_SAC;
     }
 
     @Override
